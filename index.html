@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Enrique Velazquez — NOC Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,800;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+ --emerald: #10b981;
+ --emerald-deep: #059669;
+ --emerald-glow: rgba(16,185,129,0.35);
+ --emerald-dim: rgba(16,185,129,0.12);
+ --emerald-tag: rgba(16,185,129,0.13);
+ --ink: #0a1a12;
+ --ink-soft: #3a5246;
+ --neutral: #f5f7f4;
+ --neutral-mid: #e8ece6;
+ --white: #ffffff;
+ --mono: 'DM Mono', monospace;
+ --sans: 'DM Sans', sans-serif;
+ --drawer-w: min(520px, 92vw);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+ font-family: var(--sans);
+ color: var(--ink);
+ background: var(--neutral);
+ overflow-x: hidden;
+}
+
+/* grain overlay */
+body::after {
+ content: '';
+ position: fixed; inset: 0;
+ background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+ pointer-events: none; z-index: 9999; opacity: 0.7;
+}
+
+/* ══ HERO ══ */
+.hero {
+ position: relative;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: flex-start;
+ padding: 0 8vw;
+ overflow: hidden;
+ background:
+ radial-gradient(ellipse 70% 80% at 110% 50%, rgba(16,185,129,0.18) 0%, transparent 65%),
+ linear-gradient(140deg, #07664a 0%, #0ea571 22%, #34d990 52%, #b8f0da 78%, #f5f7f4 100%);
+}
+
+/* pulsing glow blob */
+.hero::before {
+ content: '';
+ position: absolute;
+ width: 55vw; height: 55vw;
+ max-width: 700px; max-height: 700px;
+ right: -8vw; top: 50%;
+ transform: translateY(-50%);
+ background: radial-gradient(circle, rgba(16,185,129,0.22) 0%, transparent 68%);
+ border-radius: 50%;
+ pointer-events: none;
+ animation: blob-pulse 7s ease-in-out infinite;
+}
+
+@keyframes blob-pulse {
+ 0%,100% { transform: translateY(-50%) scale(1); opacity: .7; }
+ 50% { transform: translateY(-52%) scale(1.06); opacity: 1; }
+}
+
+/* ── ORBIT SYSTEM ── */
+.orbit-wrap {
+ position: absolute;
+ right: -4vw; top: 50%;
+ transform: translateY(-50%);
+ width: min(58vw, 580px);
+ height: min(58vw, 580px);
+ pointer-events: none;
+}
+
+@keyframes spin-cw { to { transform: rotate(360deg); } }
+@keyframes spin-ccw { to { transform: rotate(-360deg); } }
+@keyframes dot-glow {
+ 0%,100%{box-shadow:0 0 8px 2px rgba(255,255,255,0.5);}
+ 50%{box-shadow:0 0 20px 6px rgba(255,255,255,0.9);}
+}
+
+.ring { position: absolute; inset: 0; border-radius: 50%; }
+.ring-1 { border: 1.5px solid rgba(255,255,255,0.28); animation: spin-cw 20s linear infinite; }
+.ring-2 { inset: 12%; border: 1px solid rgba(255,255,255,0.18); animation: spin-ccw 30s linear infinite; }
+.ring-3 { inset: 26%; border: 1px dashed rgba(255,255,255,0.12); animation: spin-cw 44s linear infinite; }
+.ring-4 { inset: 40%; border: 1px solid rgba(255,255,255,0.1); animation: spin-ccw 16s linear infinite; }
+
+.dot {
+ position: absolute; border-radius: 50%; background: #fff;
+ animation: dot-glow 3s ease-in-out infinite;
+}
+.dot-a { width:10px;height:10px; top:-5px; left:calc(50% - 5px); }
+.dot-b { width:7px;height:7px; bottom:-3.5px; right:calc(50% - 3.5px); animation-delay:.8s; }
+.dot-c { width:5px;height:5px; top:calc(50% - 2.5px); right:-2.5px; animation-delay:1.6s; opacity:.8; }
+.orbit-core {
+ position: absolute; inset: 44%; border-radius: 50%;
+ background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+}
+
+/* ── HERO CONTENT ── */
+.hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+.status-badge {
+ display: inline-flex; align-items: center; gap: 0.5rem;
+ font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.1em; text-transform: uppercase;
+ color: rgba(255,255,255,0.75);
+ border: 1px solid rgba(255,255,255,0.22);
+ padding: 0.3rem 0.8rem; border-radius: 2rem;
+ backdrop-filter: blur(4px);
+ background: rgba(255,255,255,0.08);
+ margin-bottom: 1.5rem; width: fit-content;
+}
+.status-dot {
+ width: 6px; height: 6px; border-radius: 50%;
+ background: #4ade80;
+ animation: status-ping 2s ease-in-out infinite;
+}
+@keyframes status-ping {
+ 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.6);}
+ 50%{box-shadow:0 0 0 5px rgba(74,222,128,0);}
+}
+
+.hero-eyebrow {
+ font-family: var(--mono); font-size: 0.7rem;
+ letter-spacing: 0.22em; text-transform: uppercase;
+ color: rgba(255,255,255,0.7); margin-bottom: 1.3rem;
+ display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-eyebrow::before {
+ content: ''; width: 28px; height: 1.5px;
+ background: rgba(255,255,255,0.5); display: inline-block;
+}
+
+.hero-name {
+ font-size: clamp(3rem, 8vw, 5.8rem);
+ font-weight: 800; line-height: 0.95;
+ letter-spacing: -0.035em; color: #fff;
+ text-shadow: 0 4px 60px rgba(5,70,40,0.3);
+ margin-bottom: 1.4rem;
+}
+.hero-name .last { color: rgba(255,255,255,0.72); }
+
+.hero-tagline {
+ font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+ font-weight: 300; color: rgba(255,255,255,0.82);
+ line-height: 1.75; margin-bottom: 2.2rem; letter-spacing: 0.01em;
+}
+.hero-tagline .sep { margin: 0 0.5rem; opacity: 0.4; }
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+.btn-primary {
+ font-family: var(--mono); font-size: 0.75rem;
+ letter-spacing: 0.08em; text-transform: uppercase;
+ color: var(--ink); background: #fff; border: none;
+ padding: 0.65rem 1.4rem; border-radius: 2rem;
+ cursor: pointer; transition: all 0.22s ease; text-decoration: none; font-weight: 500;
+}
+.btn-primary:hover {
+ background: var(--emerald); color: #fff;
+ transform: translateY(-2px);
+ box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+}
+.btn-ghost {
+ font-family: var(--mono); font-size: 0.75rem;
+ letter-spacing: 0.08em; text-transform: uppercase;
+ color: rgba(255,255,255,0.8);
+ background: rgba(255,255,255,0.1);
+ border: 1px solid rgba(255,255,255,0.3);
+ padding: 0.65rem 1.4rem; border-radius: 2rem;
+ cursor: pointer; transition: all 0.22s ease;
+ text-decoration: none; backdrop-filter: blur(6px);
+}
+.btn-ghost:hover {
+ background: rgba(255,255,255,0.22); color: #fff;
+ border-color: rgba(255,255,255,0.65);
+ transform: translateY(-2px);
+}
+
+.scroll-hint {
+ position: absolute; bottom: 2.2rem; left: 8vw;
+ display: flex; align-items: center; gap: 0.6rem;
+ font-family: var(--mono); font-size: 0.63rem;
+ letter-spacing: 0.18em; text-transform: uppercase;
+ color: rgba(255,255,255,0.4); z-index: 2;
+}
+@keyframes bounce-y {0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.scroll-hint svg { animation: bounce-y 2s ease-in-out infinite; }
+
+/* ══ FADE-IN STAGGER ══ */
+@keyframes fadeUp {
+ from { opacity:0; transform:translateY(28px); }
+ to { opacity:1; transform:translateY(0); }
+}
+.reveal { opacity:0; animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+.d1{animation-delay:.08s}.d2{animation-delay:.22s}.d3{animation-delay:.38s}
+.d4{animation-delay:.52s}.d5{animation-delay:.66s}.d6{animation-delay:.80s}.d7{animation-delay:.94s}
+
+/* ══ MAIN ══ */
+main { position: relative; z-index: 1; background: var(--neutral); }
+
+section {
+ max-width: 900px; margin: 0 auto; padding: 5.5rem 6vw;
+}
+section + section { border-top: 1px solid var(--neutral-mid); }
+
+.section-label {
+ font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.25em; text-transform: uppercase;
+ color: var(--emerald); margin-bottom: 2rem;display: flex; align-items: center; gap: 0.9rem;
+}
+.section-label::after {
+ content:''; flex:1; height:1px;
+ background: linear-gradient(90deg, var(--emerald-dim), transparent);
+ max-width: 160px;
+}
+
+/* ── ABOUT ── */
+.about-text {
+ font-size: clamp(1.05rem, 2vw, 1.22rem);
+ font-weight: 300; line-height: 1.85;
+ color: var(--ink-soft); max-width: 640px;
+}
+.about-text strong { color: var(--ink); font-weight: 600; }
+
+.about-stats {
+ display: flex; gap: 2.5rem; flex-wrap: wrap;
+ margin-top: 2.5rem; padding-top: 2rem;
+ border-top: 1px solid var(--neutral-mid);
+}
+.stat-num {
+ font-size: 2rem; font-weight: 800;
+ color: var(--emerald); letter-spacing: -0.03em; line-height: 1;
+}
+.stat-label {
+ font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.12em; text-transform: uppercase;
+ color: var(--ink-soft); margin-top: 0.35rem;
+}
+
+/* ── SKILLS ── */
+.skills-grid { display: flex; flex-direction: column; gap: 1.8rem; }
+.skill-group-label {
+ font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.15em; text-transform: uppercase;
+ color: var(--ink-soft); margin-bottom: 0.75rem;
+}
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pill {
+ font-family: var(--mono); font-size: 0.72rem;
+ padding: 0.38rem 0.9rem; border-radius: 2rem;
+ background: var(--emerald-tag); color: var(--emerald-deep);
+ border: 1px solid rgba(16,185,129,0.22);
+ letter-spacing: 0.04em; cursor: default;
+ transition: all 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+.pill:hover {
+ background: var(--emerald); color: #fff;
+ border-color: var(--emerald);
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(16,185,129,0.3);
+}
+.pill.neu {
+ background: var(--white); color: var(--ink-soft); border-color: var(--neutral-mid);
+}
+.pill.neu:hover {
+ background: var(--ink); color: var(--neutral);
+ border-color: var(--ink); box-shadow: 0 6px 20px rgba(10,26,18,0.15);
+}
+
+/* ── PROJECT CARD ── */
+.project-card {
+ border: 1px solid var(--neutral-mid);
+ border-left: 4px solid var(--emerald);
+ border-radius: 0 14px 14px 0;
+ padding: 1.8rem 2rem;
+ background: var(--white);
+ max-width: 620px;
+ transition: all 0.28s cubic-bezier(0.22,1,0.36,1);
+ position: relative; overflow: hidden;
+}
+.project-card::before {
+ content: ''; position: absolute; inset: 0;
+ background: linear-gradient(135deg, var(--emerald-dim) 0%, transparent 60%);
+ opacity: 0; transition: opacity 0.28s ease;
+}
+.project-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 16px 48px rgba(16,185,129,0.12), 0 2px 8px rgba(0,0,0,0.04);
+ border-left-color: var(--emerald-deep);
+}
+.project-card:hover::before { opacity: 1; }
+.project-name { font-size: 1.2rem; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.35rem; position: relative; z-index: 1; }
+.project-stack { font-family: var(--mono); font-size: 0.65rem; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; position: relative; z-index: 1; }
+.project-desc { font-size: 0.9rem; font-weight: 300; line-height: 1.72; color: var(--ink-soft); margin-bottom: 1.2rem; position: relative; z-index: 1; }
+.project-link {
+ font-family: var(--mono); font-size: 0.72rem;
+ color: var(--emerald-deep); text-decoration: none;
+ letter-spacing: 0.06em; display: inline-flex;
+ align-items: center; gap: 0.45rem;
+ transition: all 0.2s ease; position: relative; z-index: 1;
+}
+.project-link:hover { gap: 0.75rem; color: var(--ink); }
+
+/* ══ EXPERIENCE TIMELINE ══ */
+.timeline { display: flex; flex-direction: column; }
+
+.timeline-item {
+ display: grid;
+ grid-template-columns: 110px 1fr auto;
+ gap: 0 1.8rem;
+ padding: 1.5rem 0.8rem;
+ border-bottom: 1px solid var(--neutral-mid);
+ align-items: center;
+ cursor: pointer;
+ border-radius: 10px;
+ margin: 0 -0.8rem;
+ transition: background 0.2s ease, transform 0.18s ease;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-item:hover { background: rgba(16,185,129,0.05); transform: translateX(4px); }
+.timeline-item.active { background: rgba(16,185,129,0.08); transform: translateX(4px); }
+
+.tl-date {font-family: var(--mono); font-size: 0.65rem;
+ color: var(--emerald); letter-spacing: 0.06em; line-height: 1.6;
+}
+.tl-company { font-size: 1.05rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.tl-role { font-size: 0.85rem; font-weight: 300; font-style: italic; color: var(--ink-soft); margin-top: 0.2rem; }
+
+.tl-arrow {
+ font-size: 1rem; color: var(--emerald); opacity: 0.4;
+ transition: all 0.22s ease; user-select: none;
+}
+.timeline-item:hover .tl-arrow { opacity: 1; transform: translateX(4px); }
+.timeline-item.active .tl-arrow { opacity: 1; transform: rotate(90deg); }
+
+/* ══ DRAWER OVERLAY ══ */
+.drawer-overlay {
+ position: fixed; inset: 0;
+ background: rgba(10,26,18,0.5);
+ backdrop-filter: blur(4px);
+ z-index: 100;
+ opacity: 0; pointer-events: none;
+ transition: opacity 0.35s ease;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ══ DRAWER PANEL ══ */
+.drawer {
+ position: fixed;
+ top: 0; right: 0; bottom: 0;
+ width: var(--drawer-w);
+ background: var(--white);
+ z-index: 101;
+ transform: translateX(105%);
+ transition: transform 0.46s cubic-bezier(0.22,1,0.36,1);
+ display: flex; flex-direction: column;
+ overflow: hidden;
+ box-shadow: -24px 0 80px rgba(10,26,18,0.18);
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-header {
+ padding: 2rem 2rem 1.6rem;
+ border-bottom: 1px solid var(--neutral-mid);
+ position: relative; flex-shrink: 0;
+ background: linear-gradient(135deg, rgba(16,185,129,0.07) 0%, transparent 55%);
+}
+.drawer-close {
+ position: absolute; top: 1.4rem; right: 1.4rem;
+ width: 34px; height: 34px; border-radius: 50%;
+ border: 1px solid var(--neutral-mid);
+ background: var(--neutral); cursor: pointer;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 0.9rem; color: var(--ink-soft);
+ transition: all 0.18s ease; line-height: 1;
+}
+.drawer-close:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+.drawer-eyebrow {
+ font-family: var(--mono); font-size: 0.62rem;
+ letter-spacing: 0.2em; text-transform: uppercase;
+ color: var(--emerald); margin-bottom: 0.5rem;
+}
+.drawer-company {
+ font-size: 1.7rem; font-weight: 800;
+ color: var(--ink); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 0.4rem;
+}
+.drawer-role { font-size: 0.9rem; font-weight: 300; font-style: italic; color: var(--ink-soft); }
+.drawer-dates {
+ font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.08em; color: var(--emerald); margin-top: 0.8rem;
+}
+
+.drawer-body { flex: 1; overflow-y: auto; padding: 1.8rem 2rem; }
+.drawer-body::-webkit-scrollbar { width: 4px; }
+.drawer-body::-webkit-scrollbar-thumb { background: var(--neutral-mid); border-radius: 2px; }
+
+.drawer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.6rem; }
+.drawer-tag {
+ font-family: var(--mono); font-size: 0.62rem;
+ padding: 0.22rem 0.65rem; border-radius: 2rem;
+ background: var(--emerald-tag); color: var(--emerald-deep);
+ border: 1px solid rgba(16,185,129,0.2); letter-spacing: 0.04em;
+}
+
+.drawer-bullets { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.drawer-bullet {
+ display: flex; gap: 1rem;
+ padding: 0.9rem 0;
+ border-bottom: 1px solid var(--neutral-mid);
+ font-size: 0.88rem; font-weight: 300; line-height: 1.72;
+ color: var(--ink-soft);
+ opacity: 0; transform: translateX(20px);
+ transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22,1,0.36,1);
+}
+.drawer-bullet:last-child { border-bottom: none; }
+.drawer-bullet.visible { opacity: 1; transform: translateX(0); }
+.bullet-dot {
+ flex-shrink: 0; width: 6px; height: 6px;
+ background: var(--emerald); border-radius: 50%; margin-top: 0.58rem;
+}
+.drawer-bullet strong { color: var(--ink); font-weight: 600; }
+
+.drawer-nav {
+ display: flex; gap: 0.6rem;
+ padding: 1rem 2rem;
+ border-top: 1px solid var(--neutral-mid);
+ flex-shrink: 0;
+}
+.drawer-nav-btn {
+ flex: 1; font-family: var(--mono); font-size: 0.65rem;
+ letter-spacing: 0.1em; text-transform: uppercase;
+ padding: 0.6rem 1rem; border-radius: 2rem;
+ border: 1px solid var(--neutral-mid);background: var(--neutral); color: var(--ink-soft);
+ cursor: pointer; transition: all 0.2s ease;
+}
+.drawer-nav-btn:hover:not(:disabled) {
+ background: var(--emerald); color: #fff; border-color: var(--emerald);
+}
+.drawer-nav-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+
+/* ══ FOOTER ══ */
+footer {
+ text-align: center; padding: 2.5rem 1rem;
+ font-family: var(--mono); font-size: 0.63rem;
+ letter-spacing: 0.14em; text-transform: uppercase;
+ color: #a0b4aa; border-top: 1px solid var(--neutral-mid);
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 600px) {
+ .orbit-wrap { right: -22vw; width: 85vw; height: 85vw; opacity: 0.45; }
+ .timeline-item { grid-template-columns: 84px 1fr auto; gap: 0 0.9rem; }
+ .about-stats { gap: 1.5rem; }
+ .drawer-company { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+ <div class="orbit-wrap" aria-hidden="true">
+ <div class="ring ring-1"><div class="dot dot-a"></div></div>
+ <div class="ring ring-2"><div class="dot dot-b"></div></div>
+ <div class="ring ring-3"><div class="dot dot-c"></div></div>
+ <div class="ring ring-4"></div>
+ <div class="orbit-core"></div>
+ </div>
+
+ <div class="hero-content">
+ <div class="status-badge reveal d1">
+ <span class="status-dot"></span>
+ Available for opportunities
+ </div>
+ <p class="hero-eyebrow reveal d2">NOC Engineer &amp; Developer</p>
+ <h1 class="hero-name reveal d3">Enrique<br/><span class="last">Velazquez</span></h1>
+ <p class="hero-tagline reveal d4">
+ NG911 Operations<span class="sep">·</span>VoIP / SIP Systems<span class="sep">·</span>Cloud Infrastructure
+ </p>
+ <div class="hero-actions reveal d5">
+ <a class="btn-primary" href="mailto:enrique@carafe.one">Get in touch</a>
+ <a class="btn-ghost" href="https://github.com/midwestman35" target="_blank">GitHub →</a>
+ </div>
+ </div>
+
+ <div class="scroll-hint reveal d6">
+ <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+ <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ Scroll
+ </div>
+</header>
+
+<main>
+
+ <!-- ══ ABOUT ══ -->
+ <section class="reveal d6">
+ <div class="section-label">About</div>
+ <p class="about-text">
+ Network engineer and developer specializing in <strong>NG911 cloud infrastructure</strong>,
+ <strong>VoIP/SIP systems</strong>, and NOC operations. I keep mission-critical public safety
+ platforms alive — and spend my off-hours building tooling that makes that job faster.
+ That includes <strong>NocLense</strong>, an open-source SIP log analyzer with
+ AI-assisted triage built on React 18 and TypeScript.
+ I believe the best ops engineers also know how to build.
+ </p>
+ <div class="about-stats">
+ <div>
+ <div class="stat-num">4+</div>
+ <div class="stat-label">Years in NOC ops</div>
+ </div>
+ <div>
+ <div class="stat-num">400M+</div>
+ <div class="stat-label">People on platform</div>
+ </div>
+ <div>
+ <div class="stat-num">NG911</div>
+ <div class="stat-label">Public safety focus</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ══ SKILLS ══ -->
+ <section class="reveal d6">
+ <div class="section-label">Skills</div>
+ <div class="skills-grid">
+ <div>
+ <div class="skill-group-label">Cloud &amp; Monitoring</div>
+ <div class="pill-row">
+ <span class="pill">AWS</span><span class="pill">Datadog</span>
+ <span class="pill">Kibana</span><span class="pill">Rollbar</span>
+ <span class="pill">Distributed Systems</span>
+ </div>
+ </div>
+ <div>
+ <div class="skill-group-label">VoIP &amp; NG911</div>
+ <div class="pill-row">
+ <span class="pill">SIP</span><span class="pill">ANI/ALI</span>
+ <span class="pill">MGCP</span><span class="pill">H.248</span>
+ <span class="pill">Metaswitch</span><span class="pill">Ribbon C15</span><span class="pill">CUCM</span><span class="pill">eMTA / PBX</span>
+ </div>
+ </div>
+ <div>
+ <div class="skill-group-label">Networking</div>
+ <div class="pill-row">
+ <span class="pill neu">BGP / OSPF / ISIS</span><span class="pill neu">MPLS</span>
+ <span class="pill neu">SD-WAN</span><span class="pill neu">FortiGate</span>
+ <span class="pill neu">IPv4 / IPv6</span><span class="pill neu">SNMP / NetFlow</span>
+ <span class="pill neu">GPON / SONET</span>
+ </div>
+ </div>
+ <div>
+ <div class="skill-group-label">Development</div>
+ <div class="pill-row">
+ <span class="pill neu">React 18</span><span class="pill neu">TypeScript</span>
+ <span class="pill neu">Vite</span><span class="pill neu">Electron</span>
+ <span class="pill neu">Node.js</span><span class="pill neu">Bash</span>
+ <span class="pill neu">Git</span>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ══ PROJECTS ══ -->
+ <section class="reveal d6">
+ <div class="section-label">Projects</div>
+ <div class="project-card">
+ <div class="project-name">NocLense</div>
+ <div class="project-stack">React 18 · TypeScript · Vite · Electron · Vercel</div>
+ <p class="project-desc">
+ Open-source SIP and system log analyzer built for NOC triage workflows.
+ Features AI-assisted log analysis, Datadog-inspired faceted filtering,
+ saved views, and a Web Worker–backed ingestion pipeline for large captures.
+ Distributed as both a web app and Electron desktop wrapper.
+ </p>
+ <a class="project-link" href="https://github.com/midwestman35/NocLense" target="_blank">
+ github.com/midwestman35/NocLense →
+ </a>
+ </div>
+ </section>
+
+ <!-- ══ EXPERIENCE ══ -->
+ <section class="reveal d6">
+ <div class="section-label">Experience</div>
+ <p style="font-family:var(--mono);font-size:0.63rem;letter-spacing:0.1em;color:var(--ink-soft);margin-bottom:1.4rem;opacity:0.6;">
+ Click any role to expand
+ </p>
+ <div class="timeline" id="timeline">
+
+ <div class="timeline-item" data-job="axon" tabindex="0" role="button">
+ <div class="tl-date">Oct 2025<br/>Present</div>
+ <div class="tl-main">
+ <div class="tl-company">Axon</div>
+ <div class="tl-role">NOC Engineer — NG911 / Public Safety SaaS</div>
+ </div>
+ <div class="tl-arrow">→</div>
+ </div>
+
+ <div class="timeline-item" data-job="cdw" tabindex="0" role="button">
+ <div class="tl-date">Jun 2023<br/>Oct 2025</div>
+ <div class="tl-main">
+ <div class="tl-company">CDW</div>
+ <div class="tl-role">Network Analyst</div>
+ </div>
+ <div class="tl-arrow">→</div>
+ </div>
+
+ <div class="timeline-item" data-job="firstlight" tabindex="0" role="button">
+ <div class="tl-date">May 2022<br/>May 2023</div>
+ <div class="tl-main">
+ <div class="tl-company">Firstlight Fiber</div>
+ <div class="tl-role">Enterprise NOC Technician I</div>
+ </div>
+ <div class="tl-arrow">→</div>
+ </div>
+
+ <div class="timeline-item" data-job="hargray" tabindex="0" role="button">
+ <div class="tl-date">Oct 2021<br/>May 2022</div>
+ <div class="tl-main">
+ <div class="tl-company">Hargray Communications</div>
+ <div class="tl-role">Help Desk Technician</div>
+ </div>
+ <div class="tl-arrow">→</div>
+ </div>
+
+ </div>
+ </section>
+
+</main>
+
+<footer>
+ Built by Enrique Velazquez &nbsp;·&nbsp; &copy; <span id="yr"></span>
+</footer>
+
+<!-- ══ DRAWER ══ -->
+<div class="drawer-overlay" id="overlay"></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Job details">
+ <div class="drawer-header">
+ <button class="drawer-close" id="drawerClose" aria-label="Close panel">✕</button>
+ <div class="drawer-eyebrow" id="dEyebrow"></div>
+ <div class="drawer-company" id="dCompany"></div>
+ <div class="drawer-role" id="dRole"></div><div class="drawer-dates" id="dDates"></div>
+ </div>
+ <div class="drawer-body">
+ <div class="drawer-tags" id="dTags"></div>
+ <ul class="drawer-bullets" id="dBullets"></ul>
+ </div>
+ <div class="drawer-nav">
+ <button class="drawer-nav-btn" id="prevBtn">← Prev</button>
+ <button class="drawer-nav-btn" id="nextBtn">Next →</button>
+ </div>
+</div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const JOBS = [
+ {
+ id: 'axon', eyebrow: 'Current Role',
+ company: 'Axon', role: 'NOC Engineer',
+ dates: 'October 2025 – Present',
+ tags: ['AWS','Datadog','FortiGate','Digi Devices','ANI/ALI','Jira','Zendesk','NG911','P1–P4'],
+ bullets: [
+ { b: 'Cloud Monitoring', t: 'Monitor AWS-hosted infrastructure via Datadog dashboards and alerts; triage service disruptions across distributed NG911 systems in real time.' },
+ { b: 'Edge Troubleshooting', t: 'First-level triage on Digi remote access devices, FortiGate firewalls, and ANI/ALI routing services critical to emergency call delivery.' },
+ { b: 'Incident Management', t: 'Classify and manage incidents P1–P4 across Jira and Zendesk; maintain SLA compliance across global customer environments.' },
+ { b: 'Runbooks', t: 'Execute and maintain NOC runbooks and playbooks; document new incident patterns and lessons learned to evolve the operational knowledge base.' },
+ { b: 'Cross-functional', t: 'Collaborate with Engineering, Product, and Support teams on escalations and root cause investigations.' },
+ { b: 'Coverage', t: 'Provide evening, overnight, and weekend coverage for mission-critical public safety infrastructure serving 400M+ people.' },
+ ]
+ },
+ {
+ id: 'cdw', eyebrow: 'Previous Role',
+ company: 'CDW', role: 'Network Analyst',
+ dates: 'June 2023 – October 2025',
+ tags: ['SD-WAN','Cisco','Silver Peak','VMware ESXi','vSphere','Bash','MPLS','Linux'],
+ bullets: [
+ { b: 'SD-WAN', t: 'Managed SD-WAN solutions via Cisco/Silver Peak Orchestrator for enterprise customers; administered carrier circuit portfolio (MPLS, Internet).' },
+ { b: 'Linux / Scripting', t: 'Performed Linux server troubleshooting and alert monitoring via Bash scripting across customer infrastructure and BMN avatar environments.' },
+ { b: 'Virtualization', t: 'Conducted VMware ESXi / vSphere / vCenter entry-level triage and virtual machine support.' },
+ { b: '24×7 Ops', t: 'Provided round-the-clock NOC monitoring across day and overnight shifts for multi-customer environments.' },
+ ]
+ },
+ {
+ id: 'firstlight', eyebrow: 'Previous Role',
+ company: 'Firstlight Fiber', role: 'Enterprise NOC Technician I',
+ dates: 'May 2022 – May 2023',
+ tags: ['SIP','GPON','BGP','MPLS','Metaswitch','Ribbon C15','SolarWinds','Calix','SONET'],
+ bullets: [
+ { b: 'Enterprise Support', t: 'Supported enterprise customers across ticketing and phone channels; served as technical resource and escalation point for peers.' },
+ { b: 'OSI Troubleshooting', t: 'Troubleshot across layers 1–4 using Metaswitch, Ribbon C15, Calix CMS, SolarWinds, and Planet Operate.' },
+ { b: 'Provisioning', t: 'Provisioned and supported SONET, GPON, DSL, and Active Ethernet; campus networks including Penn State and University of Pittsburgh.' },
+ { b: 'Protocol Stack', t: 'Working knowledge of SIP, MGCP, H.248, BGP, OSPF, ISIS, MPLS, IPv4/IPv6, DNS, DHCP, SNMP, IPFIX, NetFlow.' },
+ { b: 'Multi-Vendor', t: 'Worked across Adtran, Cisco, Ciena, Calix, Juniper, Tellabs, and TMARC NID environments.' },
+ ]
+ },
+ {
+ id: 'hargray', eyebrow: 'Previous Role',
+ company: 'Hargray Communications', role: 'Help Desk Technician',
+ dates: 'October 2021 – May 2022',
+ tags: ['SIP','POTS','eMTA','PBX','DOCSIS','GPON','Zendesk','Voice'],
+ bullets: [
+ { b: 'Customer Support', t: 'Resolved Voice, Video, and HSI service issues via phone/email/chat; escalated to NOC for systemic incidents.' },{ b: 'VoIP / Voice', t: 'Supported voice customers across POTS, SIP, eMTA, and PBX delivery platforms; developed foundational telephony troubleshooting methodology.' },
+ { b: 'Documentation', t: 'Documented all interactions with thorough ticket notes to support escalation requirements and audit trail compliance.' },
+ ]
+ }
+];
+
+const jobMap = Object.fromEntries(JOBS.map(j => [j.id, j]));
+const order = JOBS.map(j => j.id);
+let activeJob = null;
+
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+
+function openDrawer(jobId) {
+ const job = jobMap[jobId];
+ activeJob = jobId;
+
+ document.getElementById('dEyebrow').textContent = job.eyebrow;
+ document.getElementById('dCompany').textContent = job.company;
+ document.getElementById('dRole').textContent = job.role;
+ document.getElementById('dDates').textContent = job.dates;
+
+ document.getElementById('dTags').innerHTML =
+ job.tags.map(t => `<span class="drawer-tag">${t}</span>`).join('');
+
+ const bulletsEl = document.getElementById('dBullets');
+ bulletsEl.innerHTML = job.bullets.map(b =>
+ `<li class="drawer-bullet">
+ <div class="bullet-dot"></div>
+ <div><strong>${b.b}:</strong> ${b.t}</div>
+ </li>`
+ ).join('');
+
+ const idx = order.indexOf(jobId);
+ document.getElementById('prevBtn').disabled = idx === 0;
+ document.getElementById('nextBtn').disabled = idx === order.length - 1;
+
+ document.querySelectorAll('.timeline-item').forEach(el =>
+ el.classList.toggle('active', el.dataset.job === jobId)
+ );
+
+ drawer.classList.add('open');
+ overlay.classList.add('open');
+ document.body.style.overflow = 'hidden';
+
+ // stagger bullet slide-ins
+ requestAnimationFrame(() => {
+ bulletsEl.querySelectorAll('.drawer-bullet').forEach((b, i) =>
+ setTimeout(() => b.classList.add('visible'), 100 + i * 75)
+ );
+ });
+}
+
+function closeDrawer() {
+ drawer.classList.remove('open');
+ overlay.classList.remove('open');
+ document.body.style.overflow = '';
+ document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+ activeJob = null;
+}
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+ item.addEventListener('click', () => openDrawer(item.dataset.job));
+ item.addEventListener('keydown', e => {
+ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(item.dataset.job); }
+ });
+});
+
+document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+document.getElementById('prevBtn').addEventListener('click', () => {
+ const idx = order.indexOf(activeJob);
+ if (idx > 0) openDrawer(order[idx - 1]);
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+ const idx = order.indexOf(activeJob);
+ if (idx < order.length - 1) openDrawer(order[idx + 1]);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+// scroll-triggered section reveals
+const obs = new IntersectionObserver(entries => {
+ entries.forEach(e => {
+ if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; obs.unobserve(e.target); }
+ });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('section.reveal').forEach(el => {
+ el.style.animationPlayState = 'paused';
+ obs.observe(el);
+});
+</script>
+</body>
+</html>
