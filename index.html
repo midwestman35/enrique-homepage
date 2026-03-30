@@ -853,29 +853,60 @@ function computeLines(text, font, containerWidth, lineHeight) {
 }
 
 function buildLineSpans(lines, fullText, strongRanges) {
-  let charOffset = 0;
-  return lines.map(line => {
-    const lineText = line.text;
-    const lineStart = charOffset;
-    const lineEnd   = lineStart + lineText.length;
-    charOffset = lineEnd;
-    if (fullText[charOffset] === ' ') charOffset++;
+  // Find the starting position of each line in fullText
+  let searchFrom = 0;
+  const lineOffsets = lines.map(line => {
+    const idx = fullText.indexOf(line.text.trimStart(), searchFrom);
+    const start = idx === -1 ? searchFrom : idx;
+    searchFrom = start + line.text.trimStart().length;
+    // Skip one space after the line (word-wrap consumed space)
+    if (fullText[searchFrom] === ' ') searchFrom++;
+    return { lineStart: start, lineEnd: start + line.text.trimStart().length, lineText: line.text.trimStart() };
+  });
 
+  return lineOffsets.map(({ lineStart, lineEnd, lineText }) => {
     const hasStrong = strongRanges.some(r => r.start < lineEnd && r.end > lineStart);
 
-    let html = lineText;
-    strongRanges.forEach(r => {
-      if (r.start >= lineStart && r.end <= lineEnd) {
-        const word = fullText.slice(r.start, r.end);
-        html = html.replace(word, `<strong>${word}</strong>`);
+    // Rebuild HTML by walking through the line character range
+    // and inserting <strong> tags at exact offsets
+    let html = '';
+    let pos = lineStart;
+
+    // Collect relevant strong ranges that overlap this line
+    const relevantRanges = strongRanges
+      .filter(r => r.start < lineEnd && r.end > lineStart)
+      .map(r => ({
+        start: Math.max(r.start, lineStart),
+        end: Math.min(r.end, lineEnd),
+      }))
+      .sort((a, b) => a.start - b.start);
+
+    for (const r of relevantRanges) {
+      // Text before this strong range
+      if (pos < r.start) {
+        html += escHtml(fullText.slice(pos, r.start));
       }
-    });
+      // Strong text (clipped to line boundaries)
+      html += `<strong>${escHtml(fullText.slice(r.start, r.end))}</strong>`;
+      pos = r.end;
+    }
+    // Remaining text after last strong range
+    if (pos < lineEnd) {
+      html += escHtml(fullText.slice(pos, lineEnd));
+    }
 
     const span = document.createElement('span');
     span.className = 'about-line' + (hasStrong ? ' has-strong' : '');
     span.innerHTML = html;
     return { span, hasStrong };
   });
+}
+
+function escHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 function revealLines(lineItems) {
@@ -912,9 +943,12 @@ function runPretext() {
   revealLines(lineItems);
 }
 
+// Wait for both: card entrance animation AND DM Sans font loaded
 // Card entrance: 0.8s delay + 0.7s duration + 50ms buffer = 1550ms
 const CARD_ENTRANCE_MS = 1550;
-setTimeout(runPretext, CARD_ENTRANCE_MS);
+const fontPromise = document.fonts.ready;
+const timerPromise = new Promise(resolve => setTimeout(resolve, CARD_ENTRANCE_MS));
+Promise.all([fontPromise, timerPromise]).then(runPretext);
 
 // ResizeObserver: re-layout without re-animating
 let resizeTimer;
