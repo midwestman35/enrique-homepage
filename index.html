@@ -120,7 +120,7 @@ body::after {
 @keyframes word-bloom {
  0%   { color: var(--text-primary); }
  35%  { color: var(--emerald-bright); text-shadow: 0 0 18px rgba(52,211,153,0.5); }
- 100% { color: var(--text-primary); text-shadow: none; }
+ 100% { color: var(--text-primary); text-shadow: 0 0 0 transparent; }
 }
 
 @keyframes line-in {
@@ -354,6 +354,12 @@ section {
  pointer-events: none;
  animation: border-shimmer 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
  animation-delay: 1.3s;
+ z-index: 0;
+}
+
+.about-card .section-label,
+.about-card .about-text {
+ position: relative;
  z-index: 1;
 }
 
