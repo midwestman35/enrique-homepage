@@ -824,6 +824,125 @@ footer {
  </div>
 </div>
 
+<script type="module">
+import { prepare, layoutWithLines } from './pretext/dist/layout.js';
+
+const card = document.getElementById('aboutCard');
+const pEl  = card.querySelector('.about-text');
+
+// Snapshot raw text + strong-word char ranges BEFORE touching the DOM
+function extractTextAndRanges(el) {
+  let text = '';
+  const strongRanges = [];
+  el.childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      text += node.textContent;
+    } else if (node.nodeName === 'STRONG') {
+      const start = text.length;
+      text += node.textContent;
+      strongRanges.push({ start, end: text.length });
+    }
+  });
+  return { text, strongRanges };
+}
+
+function computeLines(text, font, containerWidth, lineHeight) {
+  const prepared = prepare(text, font);
+  const { lines } = layoutWithLines(prepared, containerWidth, lineHeight);
+  return lines;
+}
+
+function buildLineSpans(lines, fullText, strongRanges) {
+  let charOffset = 0;
+  return lines.map(line => {
+    const lineText = line.text;
+    const lineStart = charOffset;
+    const lineEnd   = lineStart + lineText.length;
+    charOffset = lineEnd;
+    if (fullText[charOffset] === ' ') charOffset++;
+
+    const hasStrong = strongRanges.some(r => r.start < lineEnd && r.end > lineStart);
+
+    let html = lineText;
+    strongRanges.forEach(r => {
+      if (r.start >= lineStart && r.end <= lineEnd) {
+        const word = fullText.slice(r.start, r.end);
+        html = html.replace(word, `<strong>${word}</strong>`);
+      }
+    });
+
+    const span = document.createElement('span');
+    span.className = 'about-line' + (hasStrong ? ' has-strong' : '');
+    span.innerHTML = html;
+    return { span, hasStrong };
+  });
+}
+
+function revealLines(lineItems) {
+  lineItems.forEach(({ span, hasStrong }, i) => {
+    setTimeout(() => {
+      span.style.animationPlayState = 'running';
+      if (hasStrong) {
+        setTimeout(() => span.classList.add('bloom'), 120);
+      }
+    }, i * 80);
+  });
+}
+
+// Store original data for ResizeObserver re-layout
+let originalText = '';
+let originalStrongRanges = [];
+
+function runPretext() {
+  const { text, strongRanges } = extractTextAndRanges(pEl);
+  originalText = text;
+  originalStrongRanges = strongRanges;
+
+  const styles = window.getComputedStyle(pEl);
+  const font = `300 ${styles.fontSize} "DM Sans", sans-serif`;
+  const lineHeight = parseFloat(styles.lineHeight) || Math.round(parseFloat(styles.fontSize) * 1.85);
+  const containerWidth = pEl.clientWidth;
+
+  const lines = computeLines(text, font, containerWidth, lineHeight);
+  const lineItems = buildLineSpans(lines, text, strongRanges);
+
+  pEl.innerHTML = '';
+  lineItems.forEach(({ span }) => pEl.appendChild(span));
+
+  revealLines(lineItems);
+}
+
+// Card entrance: 0.8s delay + 0.7s duration + 50ms buffer = 1550ms
+const CARD_ENTRANCE_MS = 1550;
+setTimeout(runPretext, CARD_ENTRANCE_MS);
+
+// ResizeObserver: re-layout without re-animating
+let resizeTimer;
+const ro = new ResizeObserver(() => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (!originalText || !pEl.querySelector('.about-line')) return;
+
+    const styles = window.getComputedStyle(pEl);
+    const font = `300 ${styles.fontSize} "DM Sans", sans-serif`;
+    const lineHeight = parseFloat(styles.lineHeight) || Math.round(parseFloat(styles.fontSize) * 1.85);
+    const containerWidth = pEl.clientWidth;
+
+    const lines = computeLines(originalText, font, containerWidth, lineHeight);
+    const lineItems = buildLineSpans(lines, originalText, originalStrongRanges);
+
+    pEl.innerHTML = '';
+    lineItems.forEach(({ span }) => {
+      span.style.opacity = '1';
+      span.style.animation = 'none';
+      pEl.appendChild(span);
+    });
+  }, 150);
+});
+
+ro.observe(card);
+</script>
+
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
