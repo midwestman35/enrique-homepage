@@ -93,6 +93,41 @@ body::after {
  to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes about-card-enter {
+ 0% {
+  opacity: 0;
+  transform: scale(0.97);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-color: rgba(255, 255, 255, 0.02);
+ }
+ 100% {
+  opacity: 1;
+  transform: scale(1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(255, 255, 255, 0.08);
+ }
+}
+
+@keyframes border-shimmer {
+ 0%   { opacity: 0; transform: translateX(-100%); }
+ 15%  { opacity: 1; }
+ 85%  { opacity: 1; }
+ 100% { opacity: 0; transform: translateX(100%); }
+}
+
+@keyframes word-bloom {
+ 0%   { color: var(--text-primary); }
+ 35%  { color: var(--emerald-bright); text-shadow: 0 0 18px rgba(52,211,153,0.5); }
+ 100% { color: var(--text-primary); text-shadow: none; }
+}
+
+@keyframes line-in {
+ from { opacity: 0; transform: translateY(12px); }
+ to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes status-ping {
  0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.6);}
  50%{box-shadow:0 0 0 5px rgba(52,211,153,0);}
@@ -293,6 +328,44 @@ section {
 .glass-section:hover {
  border-color: rgba(16, 185, 129, 0.15);
  box-shadow: 0 8px 40px rgba(4, 120, 87, 0.08);
+}
+
+/* ── ABOUT CARD SPECIAL ENTRANCE ── */
+.about-card {
+ opacity: 0;
+ animation: about-card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+ animation-delay: 0.8s;
+ position: relative;
+ overflow: hidden;
+}
+
+.about-card::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(
+  105deg,
+  transparent 20%,
+  rgba(52, 211, 153, 0.18) 50%,
+  transparent 80%
+ );
+ transform: translateX(-100%);
+ opacity: 0;
+ pointer-events: none;
+ animation: border-shimmer 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+ animation-delay: 1.3s;
+ z-index: 1;
+}
+
+.about-line {
+ display: block;
+ opacity: 0;
+ animation: line-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+ animation-play-state: paused;
+}
+
+.about-line.bloom strong {
+ animation: word-bloom 0.4s ease forwards;
 }
 
 section.spaced {
@@ -596,7 +669,7 @@ footer {
 
  <!-- ══ ABOUT ══ -->
  <section class="spaced">
- <div class="glass-section reveal d6">
+ <div class="glass-section about-card" id="aboutCard">
  <div class="section-label">About</div>
  <p class="about-text">
  Network engineer and developer specializing in <strong>cloud infrastructure</strong>,
