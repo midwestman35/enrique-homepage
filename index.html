@@ -1,1123 +1,388 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Enrique Velazquez — Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,800;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-
-<style>
-:root {
- --emerald: #047857;
- --emerald-light: #10b981;
- --emerald-deep: #065f46;
- --emerald-bright: #34d399;
- --blue: #3b82f6;
- --pink: #ec4899;
- --amber: #f59e0b;
- --text-primary: #ffffff;
- --text-secondary: #d1e7dd;
- --text-muted: #8aab9a;
- --card-bg: rgba(255, 255, 255, 0.06);
- --card-border: rgba(255, 255, 255, 0.08);
- --dark-bg: #071a12;
- --input-bg: rgba(7, 26, 18, 0.7);
- --mono: 'DM Mono', monospace;
- --sans: 'DM Sans', sans-serif;
- --drawer-w: min(520px, 92vw);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
- font-family: var(--sans);
- color: var(--text-primary);
- background: linear-gradient(135deg, #031c11, #0a3d2a, #0f2b3d, #1a3d2a, #031c11);
- background-size: 400% 400%;
- animation: breathe 10s ease infinite;
- min-height: 100vh;
- overflow-x: hidden;
- -webkit-font-smoothing: antialiased;
- -moz-osx-font-smoothing: grayscale;
-}
-
-/* Hidden SVG for grain */
-.grain-svg {
- position: absolute;
- width: 0;
- height: 0;
- pointer-events: none;
-}
-
-/* grain overlay */
-body::after {
- content: '';
- position: fixed; inset: 0;
- z-index: 9999;
- pointer-events: none;
- opacity: 0.035;
- filter: url(#grain);
-}
-
-/* ============ ANIMATIONS ============ */
-@keyframes breathe {
- 0%, 100% { background-position: 0% 50%; }
- 25% { background-position: 50% 0%; }
- 50% { background-position: 100% 50%; }
- 75% { background-position: 50% 100%; }
-}
-
-@keyframes spin-cw { to { transform: rotate(360deg); } }
-@keyframes spin-ccw { to { transform: rotate(-360deg); } }
-
-@keyframes dot-glow {
- 0%,100% { box-shadow: 0 0 4px rgba(4, 120, 87, 0.4); }
- 50% { box-shadow: 0 0 14px rgba(16, 185, 129, 0.9); }
-}
-
-@keyframes blob-pulse {
- 0%,100% { transform: translateY(-50%) scale(1); opacity: .5; }
- 50% { transform: translateY(-52%) scale(1.08); opacity: .9; }
-}
-
-@keyframes pulse-soft {
- 0%, 100% { opacity: 0.4; transform: scale(1); }
- 50% { opacity: 0.7; transform: scale(1.05); }
-}
-
-@keyframes fadeUp {
- from { opacity: 0; transform: translateY(24px); }
- to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes about-card-enter {
- 0% {
-  opacity: 0;
-  transform: scale(0.97);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  border-color: rgba(255, 255, 255, 0.02);
- }
- 100% {
-  opacity: 1;
-  transform: scale(1);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-color: rgba(255, 255, 255, 0.08);
- }
-}
-
-@keyframes border-shimmer {
- 0%   { opacity: 0; transform: translateX(-100%); }
- 15%  { opacity: 1; }
- 85%  { opacity: 1; }
- 100% { opacity: 0; transform: translateX(100%); }
-}
-
-@keyframes word-bloom {
- 0%   { color: var(--text-primary); }
- 35%  { color: var(--emerald-bright); text-shadow: 0 0 28px rgba(52,211,153,0.6); }
- 100% { color: var(--text-primary); text-shadow: 0 0 0 transparent; }
-}
-
-@keyframes line-in {
- from { opacity: 0; transform: translateY(12px); }
- to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes status-ping {
- 0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.6);}
- 50%{box-shadow:0 0 0 5px rgba(52,211,153,0);}
-}
-
-@keyframes bounce-y {0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-
-@keyframes slideInRight {
- from { transform: translateX(100%); }
- to { transform: translateX(0); }
-}
-
-@keyframes slideOutRight {
- from { transform: translateX(0); }
- to { transform: translateX(100%); }
-}
-
-@keyframes fadeIn {
- from { opacity: 0; }
- to { opacity: 1; }
-}
-
-.fade-up { opacity: 0; animation: fadeUp 0.6s ease forwards; }
-.d1 { animation-delay: 0.1s; }
-.d2 { animation-delay: 0.2s; }
-.d3 { animation-delay: 0.3s; }
-.d4 { animation-delay: 0.4s; }
-.d5 { animation-delay: 0.5s; }
-.d6 { animation-delay: 0.6s; }
-.d7 { animation-delay: 0.7s; }
-
-/* ══ HERO ══ */
-.hero {
- position: relative;
- min-height: 100vh;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: flex-start;
- padding: 0 8vw;
- overflow: hidden;
-}
-
-/* pulsing glow blob */
-.hero::before {
- content: '';
- position: absolute;
- width: 55vw; height: 55vw;
- max-width: 700px; max-height: 700px;
- right: -8vw; top: 50%;
- transform: translateY(-50%);
- background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 68%);
- border-radius: 50%;
- pointer-events: none;
- animation: blob-pulse 7s ease-in-out infinite;
-}
-
-/* ── ORBIT SYSTEM ── */
-.orbit-wrap {
- position: absolute;
- right: 5vw; top: 50%;
- transform: translateY(-50%);
- width: min(58vw, 580px);
- height: min(58vw, 580px);
- pointer-events: none;
-}
-
-.ring { position: absolute; inset: 0; border-radius: 50%; }
-.ring-1 { border: 1.5px solid rgba(4, 120, 87, 0.55); animation: spin-cw 20s linear infinite; }
-.ring-2 { inset: 12%; border: 1px solid rgba(59, 130, 246, 0.35); animation: spin-ccw 30s linear infinite; }
-.ring-3 { inset: 26%; border: 1px dashed rgba(236, 72, 153, 0.22); animation: spin-cw 44s linear infinite; }
-.ring-4 { inset: 40%; border: 1px solid rgba(4, 120, 87, 0.20); animation: spin-ccw 16s linear infinite; }
-
-.dot {
- position: absolute; border-radius: 50%;
- animation: dot-glow 3s ease-in-out infinite;
-}
-.dot-a { width:10px;height:10px; top:-5px; left:calc(50% - 5px); background: var(--emerald-bright); }
-.dot-b { width:7px;height:7px; bottom:-3.5px; right:calc(50% - 3.5px); animation-delay:.8s; background: var(--blue); }
-.dot-c { width:5px;height:5px; top:calc(50% - 2.5px); right:-2.5px; animation-delay:1.6s; opacity:.8; background: var(--pink); }
-.orbit-core {
- position: absolute; inset: 44%; border-radius: 50%;
- background: radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%);
-}
-
-/* ── HERO CONTENT ── */
-.hero-content { position: relative; z-index: 2; max-width: 680px; }
-
-.status-badge {
- display: inline-flex; align-items: center; gap: 0.5rem;
- font-family: var(--mono); font-size: 0.65rem;
- letter-spacing: 0.1em; text-transform: uppercase;
- color: rgba(255,255,255,0.75);
- border: 1px solid rgba(255,255,255,0.15);
- padding: 0.3rem 0.8rem; border-radius: 2rem;
- backdrop-filter: blur(12px);
- -webkit-backdrop-filter: blur(12px);
- background: rgba(255,255,255,0.06);
- margin-bottom: 1.5rem; width: fit-content;
-}
-.status-dot {
- width: 6px; height: 6px; border-radius: 50%;
- background: var(--emerald-bright);
- animation: status-ping 2s ease-in-out infinite;
-}
-
-.hero-eyebrow {
- font-family: var(--mono); font-size: 0.7rem;
- letter-spacing: 0.22em; text-transform: uppercase;
- color: var(--text-muted); margin-bottom: 1.3rem;
- display: flex; align-items: center; gap: 0.8rem;
-}
-.hero-eyebrow::before {
- content: ''; width: 28px; height: 1.5px;
- background: rgba(255,255,255,0.35); display: inline-block;
-}
-
-.hero-name {
- font-size: clamp(3rem, 8vw, 5.8rem);
- font-weight: 800; line-height: 0.95;
- letter-spacing: -0.035em;
- color: #fff;
- text-shadow: 0 4px 60px rgba(4,120,87,0.3);
- margin-bottom: 1.4rem;
-}
-
-.hero-tagline {
- font-size: clamp(0.88rem, 1.8vw, 1.05rem);
- font-weight: 300; color: var(--text-secondary);
- line-height: 1.75; margin-bottom: 2.2rem; letter-spacing: 0.01em;
-}
-.hero-tagline .sep { margin: 0 0.5rem; opacity: 0.4; }
-
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-
-.btn-primary {
- font-family: var(--mono); font-size: 0.75rem;
- letter-spacing: 0.08em; text-transform: uppercase;
- color: #fff; background: var(--emerald);
- border: none;
- padding: 0.65rem 1.4rem; border-radius: 2rem;
- cursor: pointer; transition: all 0.22s ease; text-decoration: none; font-weight: 500;
-}
-.btn-primary:hover {
- background: var(--emerald-light);
- transform: translateY(-2px);
- box-shadow: 0 8px 24px rgba(16,185,129,0.4);
-}
-.btn-ghost {
- font-family: var(--mono); font-size: 0.75rem;
- letter-spacing: 0.08em; text-transform: uppercase;
- color: rgba(255,255,255,0.8);
- background: rgba(255,255,255,0.06);
- border: 1px solid rgba(255,255,255,0.15);
- padding: 0.65rem 1.4rem; border-radius: 2rem;
- cursor: pointer; transition: all 0.22s ease;
- text-decoration: none; backdrop-filter: blur(6px);
-}
-.btn-ghost:hover {
- background: rgba(255,255,255,0.15); color: #fff;
- border-color: rgba(255,255,255,0.4);
- transform: translateY(-2px);
-}
-
-.scroll-hint {
- position: absolute; bottom: 2.2rem; left: 8vw;
- display: flex; align-items: center; gap: 0.6rem;
- font-family: var(--mono); font-size: 0.63rem;
- letter-spacing: 0.18em; text-transform: uppercase;
- color: var(--text-muted); z-index: 2; opacity: 0.5;
-}
-.scroll-hint svg { animation: bounce-y 2s ease-in-out infinite; }
-
-/* ══ FADE-IN STAGGER ══ */
-.reveal { opacity:0; animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
-.d1{animation-delay:.08s}.d2{animation-delay:.22s}.d3{animation-delay:.38s}
-.d4{animation-delay:.52s}.d5{animation-delay:.66s}.d6{animation-delay:.80s}.d7{animation-delay:.94s}
-
-/* ══ MAIN ══ */
-main { position: relative; z-index: 1; }
-
-section {
- max-width: 900px; margin: 0 auto; padding: 5.5rem 6vw;
-}
-
-/* glass card sections */
-.glass-section {
- background: var(--card-bg);
- backdrop-filter: blur(24px);
- -webkit-backdrop-filter: blur(24px);
- border: 1px solid var(--card-border);
- border-radius: 24px;
- padding: 2.8rem 2.6rem;
- max-width: 900px;
- margin: 0 auto;
- transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.glass-section:hover {
- border-color: rgba(16, 185, 129, 0.15);
- box-shadow: 0 8px 40px rgba(4, 120, 87, 0.08);
-}
-
-/* ── ABOUT CARD SPECIAL ENTRANCE ── */
-.about-card {
- opacity: 0;
- animation: about-card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
- animation-delay: 0.8s;
- position: relative;
- overflow: hidden;
-}
-
-.about-card::before {
- content: '';
- position: absolute;
- inset: 0;
- background: linear-gradient(
-  105deg,
-  transparent 20%,
-  rgba(52, 211, 153, 0.12) 50%,
-  transparent 80%
- );
- transform: translateX(-100%);
- opacity: 0;
- pointer-events: none;
- animation: border-shimmer 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
- animation-delay: 1.3s;
- z-index: 0;
-}
-
-.about-card .section-label,
-.about-card .about-text {
- position: relative;
- z-index: 1;
-}
-
-.about-line {
- display: block;
- opacity: 0;
- animation: line-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
- animation-play-state: paused;
-}
-
-.about-line.bloom strong {
- animation: word-bloom 0.4s ease forwards;
-}
-
-section.spaced {
- padding: 2rem 6vw;
-}
-
-.section-label {
- font-family: var(--mono); font-size: 0.65rem;
- letter-spacing: 0.25em; text-transform: uppercase;
- color: var(--emerald-light); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.9rem;
-}
-.section-label::after {
- content:''; flex:1; height:1px;
- background: linear-gradient(90deg, rgba(16,185,129,0.25), transparent);
- max-width: 160px;
-}
-
-/* ── ABOUT ── */
-.about-text {
- font-size: clamp(1.05rem, 2vw, 1.22rem);
- font-weight: 300; line-height: 1.85;
- color: var(--text-secondary); max-width: 640px;
-}
-.about-text strong { color: var(--text-primary); font-weight: 600; }
-
-/* ── SKILLS ── */
-.skills-grid { display: flex; flex-direction: column; gap: 1.8rem; }
-.skill-group-label {
- font-family: var(--mono); font-size: 0.65rem;
- letter-spacing: 0.15em; text-transform: uppercase;
- color: var(--text-muted); margin-bottom: 0.75rem;
-}
-.pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.pill {
- font-family: var(--mono); font-size: 0.72rem;
- padding: 0.38rem 0.9rem; border-radius: 2rem;
- background: rgba(16,185,129,0.12); color: var(--emerald-bright);
- border: 1px solid rgba(16,185,129,0.2);
- letter-spacing: 0.04em; cursor: default;
- transition: all 0.2s cubic-bezier(0.22,1,0.36,1);
-}
-.pill:hover {
- background: var(--emerald); color: #fff;
- border-color: var(--emerald);
- transform: translateY(-2px);
- box-shadow: 0 6px 20px rgba(16,185,129,0.3);
-}
-.pill.neu {
- background: rgba(255,255,255,0.04); color: var(--text-muted); border-color: rgba(255,255,255,0.08);
-}
-.pill.neu:hover {
- background: rgba(255,255,255,0.12); color: var(--text-primary);
- border-color: rgba(255,255,255,0.2); box-shadow: 0 6px 20px rgba(255,255,255,0.06);
-}
-
-/* ── PROJECT CARD ── */
-.project-card {
- border: 1px solid var(--card-border);
- border-left: 4px solid var(--emerald);
- border-radius: 0 16px 16px 0;
- padding: 1.8rem 2rem;
- background: var(--card-bg);
- backdrop-filter: blur(16px);
- -webkit-backdrop-filter: blur(16px);
- max-width: 620px;
- transition: all 0.28s cubic-bezier(0.22,1,0.36,1);
- position: relative; overflow: hidden;
-}
-.project-card::before {
- content: ''; position: absolute; inset: 0;
- background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, transparent 60%);
- opacity: 0; transition: opacity 0.28s ease;
-}
-.project-card:hover {
- transform: translateY(-5px);
- box-shadow: 0 16px 48px rgba(16,185,129,0.12), 0 2px 8px rgba(0,0,0,0.2);
- border-left-color: var(--emerald-light);
-}
-.project-card:hover::before { opacity: 1; }
-.project-name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 0.35rem; position: relative; z-index: 1; }
-.project-stack { font-family: var(--mono); font-size: 0.65rem; color: var(--emerald-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; position: relative; z-index: 1; }
-.project-desc { font-size: 0.9rem; font-weight: 300; line-height: 1.72; color: var(--text-secondary); margin-bottom: 1.2rem; position: relative; z-index: 1; }
-.project-link {
- font-family: var(--mono); font-size: 0.72rem;
- color: var(--emerald-bright); text-decoration: none;
- letter-spacing: 0.06em; display: inline-flex;
- align-items: center; gap: 0.45rem;
- transition: all 0.2s ease; position: relative; z-index: 1;
-}
-.project-link:hover { gap: 0.75rem; color: var(--text-primary); }
-
-/* ══ EXPERIENCE TIMELINE ══ */
-.timeline { display: flex; flex-direction: column; }
-
-.timeline-item {
- display: grid;
- grid-template-columns: 110px 1fr auto;
- gap: 0 1.8rem;
- padding: 1.5rem 0.8rem;
- border-bottom: 1px solid rgba(255,255,255,0.06);
- align-items: center;
- cursor: pointer;
- border-radius: 10px;
- margin: 0 -0.8rem;
- transition: background 0.2s ease, transform 0.18s ease;
-}
-.timeline-item:last-child { border-bottom: none; }
-.timeline-item:hover { background: rgba(16,185,129,0.06); transform: translateX(4px); }
-.timeline-item.active { background: rgba(16,185,129,0.1); transform: translateX(4px); }
-
-.tl-date {font-family: var(--mono); font-size: 0.65rem;
- color: var(--emerald-light); letter-spacing: 0.06em; line-height: 1.6;
-}
-.tl-company { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-.tl-role { font-size: 0.85rem; font-weight: 300; font-style: italic; color: var(--text-muted); margin-top: 0.2rem; }
-
-.tl-arrow {
- font-size: 1rem; color: var(--emerald-light); opacity: 0.4;
- transition: all 0.22s ease; user-select: none;
-}
-.timeline-item:hover .tl-arrow { opacity: 1; transform: translateX(4px); }
-.timeline-item.active .tl-arrow { opacity: 1; transform: rotate(90deg); }
-
-/* ══ DRAWER OVERLAY ══ */
-.drawer-overlay {
- position: fixed; inset: 0;
- background: rgba(3, 28, 17, 0.55);
- backdrop-filter: blur(6px);
- -webkit-backdrop-filter: blur(6px);
- z-index: 100;
- opacity: 0; pointer-events: none;
- transition: opacity 0.35s ease;
-}
-.drawer-overlay.open { opacity: 1; pointer-events: all; }
-
-/* ══ DRAWER PANEL ══ */
-.drawer {
- position: fixed;
- top: 0; right: 0; bottom: 0;
- width: var(--drawer-w);
- background: rgba(7, 26, 18, 0.92);
- backdrop-filter: blur(32px);
- -webkit-backdrop-filter: blur(32px);
- border-left: 1px solid rgba(255,255,255,0.08);
- z-index: 101;
- transform: translateX(105%);
- transition: transform 0.46s cubic-bezier(0.22,1,0.36,1);
- display: flex; flex-direction: column;
- overflow: hidden;
- box-shadow: -24px 0 80px rgba(0,0,0,0.35);
-}
-.drawer.open { transform: translateX(0); }
-
-.drawer-header {
- padding: 2rem 2rem 1.6rem;
- border-bottom: 1px solid rgba(255,255,255,0.06);
- position: relative; flex-shrink: 0;
- background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, transparent 55%);
-}
-.drawer-close {
- position: absolute; top: 1.4rem; right: 1.4rem;
- width: 34px; height: 34px; border-radius: 50%;
- border: 1px solid rgba(255,255,255,0.1);
- background: rgba(255,255,255,0.06); cursor: pointer;
- display: flex; align-items: center; justify-content: center;
- font-size: 0.9rem; color: var(--text-muted);
- transition: all 0.18s ease; line-height: 1;
-}
-.drawer-close:hover { background: var(--emerald); color: #fff; border-color: var(--emerald); }
-
-.drawer-eyebrow {
- font-family: var(--mono); font-size: 0.62rem;
- letter-spacing: 0.2em; text-transform: uppercase;
- color: var(--emerald-light); margin-bottom: 0.5rem;
-}
-.drawer-company {
- font-size: 1.7rem; font-weight: 800;
- letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 0.4rem;
- background: linear-gradient(135deg, #fff 0%, var(--emerald-bright) 100%);
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
- background-clip: text;
-}
-.drawer-role { font-size: 0.9rem; font-weight: 300; font-style: italic; color: var(--text-muted); }
-.drawer-dates {
- font-family: var(--mono); font-size: 0.65rem;
- letter-spacing: 0.08em; color: var(--emerald-light); margin-top: 0.8rem;
-}
-
-.drawer-body { flex: 1; overflow-y: auto; padding: 1.8rem 2rem; }
-.drawer-body::-webkit-scrollbar { width: 4px; }
-.drawer-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-.drawer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.6rem; }
-.drawer-tag {
- font-family: var(--mono); font-size: 0.62rem;
- padding: 0.22rem 0.65rem; border-radius: 2rem;
- background: rgba(16,185,129,0.12); color: var(--emerald-bright);
- border: 1px solid rgba(16,185,129,0.2); letter-spacing: 0.04em;
-}
-
-.drawer-bullets { list-style: none; display: flex; flex-direction: column; gap: 0; }
-.drawer-bullet {
- display: flex; gap: 1rem;
- padding: 0.9rem 0;
- border-bottom: 1px solid rgba(255,255,255,0.06);
- font-size: 0.88rem; font-weight: 300; line-height: 1.72;
- color: var(--text-secondary);
- opacity: 0; transform: translateX(20px);
- transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22,1,0.36,1);
-}
-.drawer-bullet:last-child { border-bottom: none; }
-.drawer-bullet.visible { opacity: 1; transform: translateX(0); }
-.bullet-dot {
- flex-shrink: 0; width: 6px; height: 6px;
- background: var(--emerald-light); border-radius: 50%; margin-top: 0.58rem;
-}
-.drawer-bullet strong { color: var(--text-primary); font-weight: 600; }
-
-.drawer-nav {
- display: flex; gap: 0.6rem;
- padding: 1rem 2rem;
- border-top: 1px solid rgba(255,255,255,0.06);
- flex-shrink: 0;
-}
-.drawer-nav-btn {
- flex: 1; font-family: var(--mono); font-size: 0.65rem;
- letter-spacing: 0.1em; text-transform: uppercase;
- padding: 0.6rem 1rem; border-radius: 2rem;
- border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: var(--text-muted);
- cursor: pointer; transition: all 0.2s ease;
-}
-.drawer-nav-btn:hover:not(:disabled) {
- background: var(--emerald); color: #fff; border-color: var(--emerald);
-}
-.drawer-nav-btn:disabled { opacity: 0.28; cursor: not-allowed; }
-
-/* ══ FOOTER ══ */
-footer {
- text-align: center; padding: 2.5rem 1rem;
- font-family: var(--mono); font-size: 0.63rem;
- letter-spacing: 0.14em; text-transform: uppercase;
- color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.06);
- opacity: 0.6;
-}
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 600px) {
- .orbit-wrap { right: -22vw; width: 85vw; height: 85vw; opacity: 0.35; }
- .timeline-item { grid-template-columns: 84px 1fr auto; gap: 0 0.9rem; }
- .glass-section { padding: 2rem 1.5rem; border-radius: 18px; }
- .drawer-company { font-size: 1.3rem; }
-}
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Enrique Velazquez is a network engineer and developer building calm operational tooling for public safety, cloud infrastructure, and NOC workflows."
+/>
+<meta property="og:title" content="Enrique Velazquez | Systems Operator and Developer" />
+<meta
+  property="og:description"
+  content="Network engineering, public safety systems, and operator-first tooling for cloud and NOC workflows."
+/>
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Enrique Velazquez | Systems Operator and Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="icon"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='24' fill='%23070f0d'/%3E%3Cpath d='M23 69V27h15.5c12.8 0 20.5 7.7 20.5 20.8S51.3 69 38.5 69H23Zm11.7-9.5h3.1c6.1 0 9.3-4.1 9.3-11.7 0-7.7-3.2-11.3-9.3-11.3h-3.1v23ZM62.5 69V27H74v15.8h10V27h11.5v42H84V52.5H74V69H62.5Z' fill='%23f5f7f2'/%3E%3C/svg%3E"
+/>
+<link rel="stylesheet" href="assets/styles/home.css" />
+<script>
+document.documentElement.classList.remove('no-js');
+document.documentElement.classList.add('js');
+</script>
 </head>
 <body>
-
-<!-- Hidden SVG for grain filter -->
-<svg class="grain-svg">
- <filter id="grain">
-  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
-  <feColorMatrix type="saturate" values="0"/>
- </filter>
-</svg>
-
-<!-- ══ HERO ══ -->
-<header class="hero">
- <div class="orbit-wrap" aria-hidden="true">
- <div class="ring ring-1"><div class="dot dot-a"></div></div>
- <div class="ring ring-2"><div class="dot dot-b"></div></div>
- <div class="ring ring-3"><div class="dot dot-c"></div></div>
- <div class="ring ring-4"></div>
- <div class="orbit-core"></div>
- </div>
-
- <div class="hero-content">
- <div class="status-badge reveal d1">
- <span class="status-dot"></span>
- Available for opportunities
- </div>
- <p class="hero-eyebrow reveal d2">Developer</p>
- <h1 class="hero-name reveal d3">Enrique<br/>Velazquez</h1>
- <p class="hero-tagline reveal d4">
- NG911 Operations · Cloud Infrastructure
- </p>
- <div class="hero-actions reveal d5">
- <a class="btn-primary" href="mailto:enrique@carafe.one">Get in touch</a>
- <a class="btn-ghost" href="https://github.com/midwestman35" target="_blank">GitHub →</a>
- </div>
- </div>
-
- <div class="scroll-hint reveal d6">
- <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
- <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
- </svg>
- Scroll
- </div>
-</header>
-
-<main>
-
- <!-- ══ ABOUT ══ -->
- <section class="spaced">
- <div class="glass-section about-card" id="aboutCard">
- <div class="section-label">About</div>
- <p class="about-text">
- Network engineer and developer specializing in <strong>cloud infrastructure</strong>,
- <strong>operations</strong>, and public safety platforms. I keep mission-critical
- NG911 systems alive — and spend my off-hours building tooling that makes that job faster.
- That includes <strong>NocLense</strong>, an open-source SIP log analyzer with
- AI-assisted triage built on React 18 and TypeScript.
- </p>
- </div>
- </section>
-
- <!-- ══ SKILLS ══ -->
- <section class="spaced">
- <div class="glass-section reveal d6">
- <div class="section-label">Skills</div>
- <div class="skills-grid">
- <div>
- <div class="skill-group-label">Cloud &amp; Monitoring</div>
- <div class="pill-row">
- <span class="pill">AWS</span><span class="pill">Datadog</span>
- <span class="pill">Kibana</span><span class="pill">Rollbar</span>
- <span class="pill">Distributed Systems</span>
- </div>
- </div>
- <div>
- <div class="skill-group-label">VoIP &amp; NG911</div>
- <div class="pill-row">
- <span class="pill">SIP</span><span class="pill">ANI/ALI</span>
- <span class="pill">MGCP</span><span class="pill">H.248</span>
- <span class="pill">Metaswitch</span><span class="pill">Ribbon C15</span><span class="pill">CUCM</span><span class="pill">eMTA / PBX</span>
- </div>
- </div>
- <div>
- <div class="skill-group-label">Networking</div>
- <div class="pill-row">
- <span class="pill neu">BGP / OSPF / ISIS</span><span class="pill neu">MPLS</span>
- <span class="pill neu">SD-WAN</span><span class="pill neu">FortiGate</span>
- <span class="pill neu">IPv4 / IPv6</span><span class="pill neu">SNMP / NetFlow</span>
- <span class="pill neu">GPON / SONET</span>
- </div>
- </div>
- <div>
- <div class="skill-group-label">Development</div>
- <div class="pill-row">
- <span class="pill neu">React 18</span><span class="pill neu">TypeScript</span>
- <span class="pill neu">Vite</span><span class="pill neu">Electron</span>
- <span class="pill neu">Node.js</span><span class="pill neu">Bash</span>
- <span class="pill neu">Git</span>
- </div>
- </div>
- </div>
- </div>
- </section>
-
- <!-- ══ PROJECTS ══ -->
- <section class="spaced">
- <div class="glass-section reveal d6">
- <div class="section-label">Projects</div>
- <div class="project-card">
- <div class="project-name">NocLense</div>
- <div class="project-stack">React 18 · TypeScript · Vite · Electron · Vercel</div>
- <p class="project-desc">
- Open-source SIP and system log analyzer built for NOC triage workflows.
- Features AI-assisted log analysis, Datadog-inspired faceted filtering,
- saved views, and a Web Worker–backed ingestion pipeline for large captures.
- Distributed as both a web app and Electron desktop wrapper.
- </p>
- <a class="project-link" href="https://github.com/midwestman35/NocLense" target="_blank">
- github.com/midwestman35/NocLense →
- </a>
- </div>
- </div>
- </section>
-
- <!-- ══ EXPERIENCE ══ -->
- <section class="spaced">
- <div class="glass-section reveal d6">
- <div class="section-label">Experience</div>
- <p style="font-family:var(--mono);font-size:0.63rem;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:1.4rem;opacity:0.6;">
- Click any role to expand
- </p>
- <div class="timeline" id="timeline">
-
- <div class="timeline-item" data-job="axon" tabindex="0" role="button">
- <div class="tl-date">Oct 2025<br/>Present</div>
- <div class="tl-main">
- <div class="tl-company">Axon</div>
- <div class="tl-role">NOC Engineer — NG911 / Public Safety SaaS</div>
- </div>
- <div class="tl-arrow">→</div>
- </div>
-
- <div class="timeline-item" data-job="cdw" tabindex="0" role="button">
- <div class="tl-date">Jun 2023<br/>Oct 2025</div>
- <div class="tl-main">
- <div class="tl-company">CDW</div>
- <div class="tl-role">Network Analyst</div>
- </div>
- <div class="tl-arrow">→</div>
- </div>
-
- <div class="timeline-item" data-job="firstlight" tabindex="0" role="button">
- <div class="tl-date">May 2022<br/>May 2023</div>
- <div class="tl-main">
- <div class="tl-company">Firstlight Fiber</div>
- <div class="tl-role">Enterprise NOC Technician I</div>
- </div>
- <div class="tl-arrow">→</div>
- </div>
-
- <div class="timeline-item" data-job="hargray" tabindex="0" role="button">
- <div class="tl-date">Oct 2021<br/>May 2022</div>
- <div class="tl-main">
- <div class="tl-company">Hargray Communications</div>
- <div class="tl-role">Help Desk Technician</div>
- </div>
- <div class="tl-arrow">→</div>
- </div>
-
- </div>
- </div>
- </section>
-
-</main>
-
-<footer>
- Built by Enrique Velazquez &nbsp;·&nbsp; &copy; <span id="yr"></span>
-</footer>
-
-<!-- ══ DRAWER ══ -->
-<div class="drawer-overlay" id="overlay"></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Job details">
- <div class="drawer-header">
- <button class="drawer-close" id="drawerClose" aria-label="Close panel">✕</button>
- <div class="drawer-eyebrow" id="dEyebrow"></div>
- <div class="drawer-company" id="dCompany"></div>
- <div class="drawer-role" id="dRole"></div><div class="drawer-dates" id="dDates"></div>
- </div>
- <div class="drawer-body">
- <div class="drawer-tags" id="dTags"></div>
- <ul class="drawer-bullets" id="dBullets"></ul>
- </div>
- <div class="drawer-nav">
- <button class="drawer-nav-btn" id="prevBtn">← Prev</button>
- <button class="drawer-nav-btn" id="nextBtn">Next →</button>
- </div>
+<a class="skip-link" href="#mainContent">Skip to content</a>
+<div class="page-backdrop" aria-hidden="true">
+  <div class="page-backdrop__halo page-backdrop__halo--one"></div>
+  <div class="page-backdrop__halo page-backdrop__halo--two"></div>
+  <div class="page-backdrop__grid"></div>
 </div>
 
-<script type="module">
-import { prepare, layoutWithLines } from './pretext/dist/layout.js';
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-mark" href="#signal" aria-label="Enrique Velazquez home">EV</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#signal">Signal</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#trajectory">Trajectory</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="site-header__link" href="mailto:enrique@carafe.one">Get in touch</a>
+  </div>
+</header>
 
-const card = document.getElementById('aboutCard');
-const pEl  = card.querySelector('.about-text');
+<main class="page-shell" id="mainContent">
+  <div class="story-shell">
+    <div class="story-column">
+      <section
+        id="signal"
+        class="hero stage-panel orbit-section"
+        data-orbit-section="signal"
+        data-reveal="enter"
+      >
+        <div class="hero__copy">
+          <p class="section-kicker" id="heroEyebrow">Systems operator - developer</p>
+          <h1 class="hero__title" id="heroTitle">Designing calm interfaces for chaotic systems.</h1>
+          <p class="hero__lede" id="heroLede">
+            I operate inside NG911 and cloud infrastructure, then build the tooling I wish
+            every NOC already had: direct, resilient, and readable when the stakes are real.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" id="heroPrimaryCta" href="mailto:enrique@carafe.one">Start a conversation</a>
+            <a
+              class="button button--secondary"
+              id="heroSecondaryCta"
+              href="https://github.com/midwestman35"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
 
-// Snapshot raw text + strong-word char ranges BEFORE touching the DOM
-function extractTextAndRanges(el) {
-  let text = '';
-  const strongRanges = [];
-  el.childNodes.forEach(node => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      text += node.textContent;
-    } else if (node.nodeName === 'STRONG') {
-      const start = text.length;
-      text += node.textContent;
-      strongRanges.push({ start, end: text.length });
-    }
-  });
-  return { text, strongRanges };
-}
+        <div class="hero__summary">
+          <div class="hero__summary-head">
+            <p class="hero__summary-label">Current signal</p>
+            <p class="hero__summary-value" id="heroAvailability">Available for the right systems and product work.</p>
+          </div>
+          <ul class="signal-strip" id="signalStrip">
+            <li class="signal-strip__item">
+              <span class="signal-strip__label">Current</span>
+              <strong>Axon - NG911 operations</strong>
+            </li>
+            <li class="signal-strip__item">
+              <span class="signal-strip__label">Focus</span>
+              <strong>Public safety, cloud infrastructure, observability</strong>
+            </li>
+            <li class="signal-strip__item">
+              <span class="signal-strip__label">Build</span>
+              <strong>NocLense - operator tooling for SIP and log triage</strong>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-function computeLines(text, font, containerWidth, lineHeight) {
-  const prepared = prepare(text, font);
-  const { lines } = layoutWithLines(prepared, containerWidth, lineHeight);
-  return lines;
-}
+      <section
+        id="systems"
+        class="section orbit-section"
+        data-orbit-section="systems"
+        data-reveal="enter"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">Operating surface</p>
+          <h2>Three systems I design around.</h2>
+          <p>
+            My work lands where public safety traffic, cloud infrastructure, and operator
+            tooling meet. These are the systems I spend time improving.
+          </p>
+        </div>
+        <div class="capability-grid" id="capabilityGrid">
+          <article class="evidence-card capability-card capability-card--emerald">
+            <p class="capability-card__eyebrow">01 - Public safety systems</p>
+            <h3>Mission-critical traffic, failure states, and operational clarity.</h3>
+            <p>
+              I work in environments where reliability is not branding language. It is the
+              operating condition.
+            </p>
+            <ul>
+              <li>NG911, ANI/ALI routing, SIP, MGCP, H.248</li>
+              <li>Runbooks, incident triage, and outage containment</li>
+              <li>FortiGate, Digi devices, and carrier-grade troubleshooting</li>
+            </ul>
+          </article>
 
-function buildLineSpans(lines, fullText, strongRanges) {
-  // Find the starting position of each line in fullText
-  let searchFrom = 0;
-  const lineOffsets = lines.map(line => {
-    const idx = fullText.indexOf(line.text.trimStart(), searchFrom);
-    const start = idx === -1 ? searchFrom : idx;
-    searchFrom = start + line.text.trimStart().length;
-    // Skip one space after the line (word-wrap consumed space)
-    if (fullText[searchFrom] === ' ') searchFrom++;
-    return { lineStart: start, lineEnd: start + line.text.trimStart().length, lineText: line.text.trimStart() };
-  });
+          <article class="evidence-card capability-card capability-card--cyan">
+            <p class="capability-card__eyebrow">02 - Cloud and observability</p>
+            <h3>Signals that stay readable under pressure.</h3>
+            <p>
+              I build around dashboards, logs, and alerting systems that need to shorten the
+              path from noise to a real decision.
+            </p>
+            <ul>
+              <li>AWS-hosted infrastructure and service monitoring</li>
+              <li>Datadog, Kibana, Rollbar, distributed systems context</li>
+              <li>SLA-conscious triage across escalations and support queues</li>
+            </ul>
+          </article>
 
-  return lineOffsets.map(({ lineStart, lineEnd, lineText }) => {
-    const hasStrong = strongRanges.some(r => r.start < lineEnd && r.end > lineStart);
+          <article class="evidence-card capability-card capability-card--graphite">
+            <p class="capability-card__eyebrow">03 - Tooling and development</p>
+            <h3>Internal products for operators who need answers fast.</h3>
+            <p>
+              My build work leans toward small, deliberate systems that make technical work
+              easier to parse and act on.
+            </p>
+            <ul>
+              <li>React 18, TypeScript, Vite, Electron, Node.js</li>
+              <li>Workflow-first product design for investigation surfaces</li>
+              <li>Interfaces that trade novelty for signal and pace</li>
+            </ul>
+          </article>
+        </div>
+      </section>
 
-    // Rebuild HTML by walking through the line character range
-    // and inserting <strong> tags at exact offsets
-    let html = '';
-    let pos = lineStart;
+      <section
+        id="proof"
+        class="section orbit-section"
+        data-orbit-section="proof"
+        data-reveal="enter"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">Featured build</p>
+          <h2>NocLense is the clearest example of how I like to build.</h2>
+        </div>
 
-    // Collect relevant strong ranges that overlap this line
-    const relevantRanges = strongRanges
-      .filter(r => r.start < lineEnd && r.end > lineStart)
-      .map(r => ({
-        start: Math.max(r.start, lineStart),
-        end: Math.min(r.end, lineEnd),
-      }))
-      .sort((a, b) => a.start - b.start);
+        <article class="stage-panel project-panel">
+          <div class="project-panel__header">
+            <div>
+              <p class="project-panel__eyebrow" id="projectEyebrow">Featured build</p>
+              <h3 class="project-panel__title" id="projectTitle">NocLense</h3>
+            </div>
+            <a
+              class="project-panel__link"
+              id="projectLink"
+              href="https://github.com/midwestman35/NocLense"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              View repository
+            </a>
+          </div>
 
-    for (const r of relevantRanges) {
-      // Text before this strong range
-      if (pos < r.start) {
-        html += escHtml(fullText.slice(pos, r.start));
-      }
-      // Strong text (clipped to line boundaries)
-      html += `<strong>${escHtml(fullText.slice(r.start, r.end))}</strong>`;
-      pos = r.end;
-    }
-    // Remaining text after last strong range
-    if (pos < lineEnd) {
-      html += escHtml(fullText.slice(pos, lineEnd));
-    }
+          <p class="project-panel__summary" id="projectSummary">
+            Open-source SIP and system log analyzer built for NOC triage workflows across web
+            and desktop.
+          </p>
 
-    const span = document.createElement('span');
-    span.className = 'about-line' + (hasStrong ? ' has-strong' : '');
-    span.innerHTML = html;
-    return { span, hasStrong };
-  });
-}
+          <div class="project-grid">
+            <section class="evidence-card project-story">
+              <div class="project-story__block">
+                <p class="project-metric__label">Operator problem</p>
+                <p id="projectProblem">
+                  Operational investigations slow down when voice traces, logs, and operator
+                  context live in separate surfaces.
+                </p>
+              </div>
 
-function escHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
+              <div class="project-story__block">
+                <p class="project-metric__label">System shape</p>
+                <p id="projectSystem">
+                  AI-assisted log analysis, faceted filtering, saved views, and a Web
+                  Worker-backed ingestion pipeline for large captures.
+                </p>
+              </div>
+            </section>
 
-function revealLines(lineItems) {
-  lineItems.forEach(({ span, hasStrong }, i) => {
-    setTimeout(() => {
-      span.style.animationPlayState = 'running';
-      if (hasStrong) {
-        setTimeout(() => span.classList.add('bloom'), 120);
-      }
-    }, i * 80);
-  });
-}
+            <section class="evidence-card project-metric project-metric--outcome">
+              <p class="project-metric__label">Outcome</p>
+              <p id="projectOutcome">
+                A tighter triage loop for SIP investigations and a clearer product language for
+                operator tooling.
+              </p>
+            </section>
 
-// Store original data for ResizeObserver re-layout
-let originalText = '';
-let originalStrongRanges = [];
+            <section class="evidence-card project-metric project-metric--stack">
+              <p class="project-metric__label">Stack</p>
+              <ul class="project-stack" id="projectStack">
+                <li>React 18</li>
+                <li>TypeScript</li>
+                <li>Vite</li>
+                <li>Electron</li>
+                <li>Vercel</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+      </section>
 
-function runPretext() {
-  const { text, strongRanges } = extractTextAndRanges(pEl);
-  originalText = text;
-  originalStrongRanges = strongRanges;
+      <section
+        id="trajectory"
+        class="section orbit-section"
+        data-orbit-section="trajectory"
+        data-reveal="enter"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">Trajectory</p>
+          <h2>Operational depth built one environment at a time.</h2>
+          <p>
+            The through-line is consistent: carrier systems, enterprise networking, and public
+            safety operations, with more responsibility and sharper tooling each step.
+          </p>
+        </div>
 
-  const styles = window.getComputedStyle(pEl);
-  const font = `300 ${styles.fontSize} "DM Sans", sans-serif`;
-  const lineHeight = parseFloat(styles.lineHeight) || Math.round(parseFloat(styles.fontSize) * 1.85);
-  const containerWidth = pEl.clientWidth;
-  if (containerWidth === 0) return;
+        <div class="trajectory-list" id="trajectoryList">
+          <article class="rail-item trajectory-card trajectory-card--open" data-trajectory-item>
+            <div class="trajectory-card__shell">
+              <div class="trajectory-card__meta">
+                <p class="trajectory-card__dates">Oct 2025 - Present</p>
+                <p class="trajectory-card__eyebrow">Current role</p>
+              </div>
+              <div class="trajectory-card__main">
+                <h3>Axon</h3>
+                <p class="trajectory-card__role">NOC Engineer - NG911 / Public Safety SaaS</p>
+              </div>
+              <button
+                class="trajectory-toggle"
+                type="button"
+                aria-expanded="true"
+                aria-controls="trajectory-panel-axon"
+              >
+                <span>View scope</span>
+              </button>
+            </div>
+            <div class="trajectory-panel" id="trajectory-panel-axon">
+              <ul class="trajectory-tags">
+                <li>AWS</li>
+                <li>Datadog</li>
+                <li>FortiGate</li>
+                <li>ANI/ALI</li>
+                <li>NG911</li>
+              </ul>
+              <ul class="trajectory-points">
+                <li>Monitor AWS-hosted infrastructure and triage service disruptions across distributed NG911 systems.</li>
+                <li>Handle first-level troubleshooting for Digi devices, FortiGate firewalls, and ANI/ALI routing services.</li>
+                <li>Manage incidents across Jira and Zendesk while maintaining SLA expectations for mission-critical environments.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
 
-  const lines = computeLines(text, font, containerWidth, lineHeight);
-  const lineItems = buildLineSpans(lines, text, strongRanges);
+      <section
+        id="contact"
+        class="section orbit-section"
+        data-orbit-section="contact"
+        data-reveal="enter"
+      >
+        <article class="stage-panel contact-panel">
+          <div class="section-heading section-heading--compact">
+            <p class="section-kicker">Contact and availability</p>
+            <h2 id="contactTitle">Open to systems, tooling, and product conversations that need discipline.</h2>
+            <p id="contactBody">
+              If the work lives somewhere between operations, infrastructure, and software, that
+              is usually where I am most useful.
+            </p>
+          </div>
 
-  pEl.innerHTML = '';
-  lineItems.forEach(({ span }) => pEl.appendChild(span));
+          <div class="contact-actions" id="contactActions">
+            <a class="button button--primary" href="mailto:enrique@carafe.one">Email Enrique</a>
+            <a
+              class="button button--secondary"
+              href="https://github.com/midwestman35"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              GitHub profile
+            </a>
+            <a class="button button--secondary" href="documents/EnriqueVelazquez_Resume.docx">Resume</a>
+          </div>
+        </article>
+      </section>
+    </div>
 
-  revealLines(lineItems);
-}
+    <aside class="orbit-dock" aria-label="Story navigation">
+      <div class="stage-panel orbit-dock__panel">
+        <p class="orbit-dock__label">Orbital narrative</p>
+        <div class="orbit-widget" data-orbit-root>
+          <svg class="orbit-widget__svg" viewBox="0 0 320 320" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbitStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5eead4"></stop>
+                <stop offset="100%" stop-color="#22c55e"></stop>
+              </linearGradient>
+            </defs>
+            <circle class="orbit-ring orbit-ring--outer" cx="160" cy="160" r="118"></circle>
+            <circle class="orbit-ring orbit-ring--inner" cx="160" cy="160" r="88"></circle>
+            <circle class="orbit-core" cx="160" cy="160" r="46"></circle>
+            <g class="orbit-node orbit-node--active" data-node="signal" data-x="160" data-y="42" transform="translate(160 42)">
+              <circle r="11"></circle>
+            </g>
+            <g class="orbit-node" data-node="systems" data-x="252" data-y="113" transform="translate(252 113)">
+              <circle r="11"></circle>
+            </g>
+            <g class="orbit-node" data-node="proof" data-x="217" data-y="248" transform="translate(217 248)">
+              <circle r="11"></circle>
+            </g>
+            <g class="orbit-node" data-node="trajectory" data-x="102" data-y="248" transform="translate(102 248)">
+              <circle r="11"></circle>
+            </g>
+            <g class="orbit-node" data-node="contact" data-x="68" data-y="113" transform="translate(68 113)">
+              <circle r="11"></circle>
+            </g>
+            <g class="orbit-halo-group" id="orbitHalo" transform="translate(160 42)">
+              <circle class="orbit-halo" r="18"></circle>
+            </g>
+          </svg>
 
-// Wait for both: card entrance animation AND DM Sans font loaded
-// Card entrance: 0.8s delay + 0.7s duration + 50ms buffer = 1550ms
-const CARD_ENTRANCE_MS = 1550;
-const fontPromise = document.fonts.ready;
-const timerPromise = new Promise(resolve => setTimeout(resolve, CARD_ENTRANCE_MS));
-Promise.all([fontPromise, timerPromise]).then(runPretext);
+          <div class="orbit-readout">
+            <p class="orbit-readout__kicker">Current phase</p>
+            <p class="orbit-readout__title" id="orbitReadoutTitle">Signal</p>
+            <p class="orbit-readout__copy" id="orbitReadoutCopy">
+              Start with the operator point of view and establish what Enrique actually builds
+              for.
+            </p>
+          </div>
 
-// ResizeObserver: re-layout without re-animating
-let resizeTimer;
-const ro = new ResizeObserver(() => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    if (!originalText || !pEl.querySelector('.about-line')) return;
+          <ol class="orbit-legend" id="orbitLegend">
+            <li class="orbit-legend__item is-active" data-step="signal"><span>01</span>Signal</li>
+            <li class="orbit-legend__item" data-step="systems"><span>02</span>Systems</li>
+            <li class="orbit-legend__item" data-step="proof"><span>03</span>Proof</li>
+            <li class="orbit-legend__item" data-step="trajectory"><span>04</span>Trajectory</li>
+            <li class="orbit-legend__item" data-step="contact"><span>05</span>Contact</li>
+          </ol>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
 
-    const styles = window.getComputedStyle(pEl);
-    const font = `300 ${styles.fontSize} "DM Sans", sans-serif`;
-    const lineHeight = parseFloat(styles.lineHeight) || Math.round(parseFloat(styles.fontSize) * 1.85);
-    const containerWidth = pEl.clientWidth;
+<footer class="site-footer">
+  <p>Built by Enrique Velazquez for operators, systems, and calm interfaces.</p>
+</footer>
 
-    const lines = computeLines(originalText, font, containerWidth, lineHeight);
-    const lineItems = buildLineSpans(lines, originalText, originalStrongRanges);
-
-    pEl.innerHTML = '';
-    lineItems.forEach(({ span }) => {
-      span.style.opacity = '1';
-      span.style.animation = 'none';
-      pEl.appendChild(span);
-    });
-  }, 150);
-});
-
-ro.observe(card);
-</script>
-
-<script>
-document.getElementById('yr').textContent = new Date().getFullYear();
-
-const JOBS = [
- {
- id: 'axon', eyebrow: 'Current Role',
- company: 'Axon', role: 'NOC Engineer',
- dates: 'October 2025 – Present',
- tags: ['AWS','Datadog','FortiGate','Digi Devices','ANI/ALI','Jira','Zendesk','NG911','P1–P4'],
- bullets: [
- { b: 'Cloud Monitoring', t: 'Monitor AWS-hosted infrastructure via Datadog dashboards and alerts; triage service disruptions across distributed NG911 systems in real time.' },
- { b: 'Edge Troubleshooting', t: 'First-level triage on Digi remote access devices, FortiGate firewalls, and ANI/ALI routing services critical to emergency call delivery.' },
- { b: 'Incident Management', t: 'Classify and manage incidents P1–P4 across Jira and Zendesk; maintain SLA compliance across global customer environments.' },
- { b: 'Runbooks', t: 'Execute and maintain NOC runbooks and playbooks; document new incident patterns and lessons learned to evolve the operational knowledge base.' },
- { b: 'Cross-functional', t: 'Collaborate with Engineering, Product, and Support teams on escalations and root cause investigations.' },
- { b: 'Coverage', t: 'Provide evening, overnight, and weekend coverage for mission-critical public safety infrastructure serving 400M+ people.' },
- ]
- },
- {
- id: 'cdw', eyebrow: 'Previous Role',
- company: 'CDW', role: 'Network Analyst',
- dates: 'June 2023 – October 2025',
- tags: ['SD-WAN','Cisco','Silver Peak','VMware ESXi','vSphere','Bash','MPLS','Linux'],
- bullets: [
- { b: 'SD-WAN', t: 'Managed SD-WAN solutions via Cisco/Silver Peak Orchestrator for enterprise customers; administered carrier circuit portfolio (MPLS, Internet).' },
- { b: 'Linux / Scripting', t: 'Performed Linux server troubleshooting and alert monitoring via Bash scripting across customer infrastructure and BMN avatar environments.' },
- { b: 'Virtualization', t: 'Conducted VMware ESXi / vSphere / vCenter entry-level triage and virtual machine support.' },
- { b: '24×7 Ops', t: 'Provided round-the-clock NOC monitoring across day and overnight shifts for multi-customer environments.' },
- ]
- },
- {
- id: 'firstlight', eyebrow: 'Previous Role',
- company: 'Firstlight Fiber', role: 'Enterprise NOC Technician I',
- dates: 'May 2022 – May 2023',
- tags: ['SIP','GPON','BGP','MPLS','Metaswitch','Ribbon C15','SolarWinds','Calix','SONET'],
- bullets: [
- { b: 'Enterprise Support', t: 'Supported enterprise customers across ticketing and phone channels; served as technical resource and escalation point for peers.' },
- { b: 'OSI Troubleshooting', t: 'Troubleshot across layers 1–4 using Metaswitch, Ribbon C15, Calix CMS, SolarWinds, and Planet Operate.' },
- { b: 'Provisioning', t: 'Provisioned and supported SONET, GPON, DSL, and Active Ethernet; campus networks including Penn State and University of Pittsburgh.' },
- { b: 'Protocol Stack', t: 'Working knowledge of SIP, MGCP, H.248, BGP, OSPF, ISIS, MPLS, IPv4/IPv6, DNS, DHCP, SNMP, IPFIX, NetFlow.' },
- { b: 'Multi-Vendor', t: 'Worked across Adtran, Cisco, Ciena, Calix, Juniper, Tellabs, and TMARC NID environments.' },
- ]
- },
- {
- id: 'hargray', eyebrow: 'Previous Role',
- company: 'Hargray Communications', role: 'Help Desk Technician',
- dates: 'October 2021 – May 2022',
- tags: ['SIP','POTS','eMTA','PBX','DOCSIS','GPON','Zendesk','Voice'],
- bullets: [
- { b: 'Customer Support', t: 'Resolved Voice, Video, and HSI service issues via phone/email/chat; escalated to NOC for systemic incidents.' },{ b: 'VoIP / Voice', t: 'Supported voice customers across POTS, SIP, eMTA, and PBX delivery platforms; developed foundational telephony troubleshooting methodology.' },
- { b: 'Documentation', t: 'Documented all interactions with thorough ticket notes to support escalation requirements and audit trail compliance.' },
- ]
- }
-];
-
-const jobMap = Object.fromEntries(JOBS.map(j => [j.id, j]));
-const order = JOBS.map(j => j.id);
-let activeJob = null;
-
-const drawer = document.getElementById('drawer');
-const overlay = document.getElementById('overlay');
-
-function openDrawer(jobId) {
- const job = jobMap[jobId];
- activeJob = jobId;
-
- document.getElementById('dEyebrow').textContent = job.eyebrow;
- document.getElementById('dCompany').textContent = job.company;
- document.getElementById('dRole').textContent = job.role;
- document.getElementById('dDates').textContent = job.dates;
-
- document.getElementById('dTags').innerHTML =
- job.tags.map(t => `<span class="drawer-tag">${t}</span>`).join('');
-
- const bulletsEl = document.getElementById('dBullets');
- bulletsEl.innerHTML = job.bullets.map(b =>
- `<li class="drawer-bullet">
- <div class="bullet-dot"></div>
- <div><strong>${b.b}:</strong> ${b.t}</div>
- </li>`
- ).join('');
-
- const idx = order.indexOf(jobId);
- document.getElementById('prevBtn').disabled = idx === 0;
- document.getElementById('nextBtn').disabled = idx === order.length - 1;
-
- document.querySelectorAll('.timeline-item').forEach(el =>
- el.classList.toggle('active', el.dataset.job === jobId)
- );
-
- drawer.classList.add('open');
- overlay.classList.add('open');
- document.body.style.overflow = 'hidden';
-
- // stagger bullet slide-ins
- requestAnimationFrame(() => {
- bulletsEl.querySelectorAll('.drawer-bullet').forEach((b, i) =>
- setTimeout(() => b.classList.add('visible'), 100 + i * 75)
- );
- });
-}
-
-function closeDrawer() {
- drawer.classList.remove('open');
- overlay.classList.remove('open');
- document.body.style.overflow = '';
- document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
- activeJob = null;
-}
-
-document.querySelectorAll('.timeline-item').forEach(item => {
- item.addEventListener('click', () => openDrawer(item.dataset.job));
- item.addEventListener('keydown', e => {
- if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(item.dataset.job); }
- });
-});
-
-document.getElementById('drawerClose').addEventListener('click', closeDrawer);
-overlay.addEventListener('click', closeDrawer);
-document.getElementById('prevBtn').addEventListener('click', () => {
- const idx = order.indexOf(activeJob);
- if (idx > 0) openDrawer(order[idx - 1]);
-});
-document.getElementById('nextBtn').addEventListener('click', () => {
- const idx = order.indexOf(activeJob);
- if (idx < order.length - 1) openDrawer(order[idx + 1]);
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
-// scroll-triggered section reveals
-const obs = new IntersectionObserver(entries => {
- entries.forEach(e => {
- if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; obs.unobserve(e.target); }
- });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.glass-section.reveal').forEach(el => {
- el.style.animationPlayState = 'paused';
- obs.observe(el);
-});
-</script>
+<script type="module" src="assets/scripts/home.js"></script>
 </body>
 </html>
