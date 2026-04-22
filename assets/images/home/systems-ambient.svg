@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Ambient systems field</title>
+  <desc id="desc">An abstract dark composition of routes, orbital rings, nodes, and green-cyan signal light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060a09" />
+      <stop offset="100%" stop-color="#0b1210" />
+    </linearGradient>
+    <radialGradient id="orbA" cx="40%" cy="40%" r="46%">
+      <stop offset="0%" stop-color="#71d3af" stop-opacity="0.36" />
+      <stop offset="100%" stop-color="#71d3af" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="orbB" cx="70%" cy="55%" r="40%">
+      <stop offset="0%" stop-color="#86dad9" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#86dad9" stop-opacity="0" />
+    </radialGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="42" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)" />
+  <rect width="1600" height="1200" fill="url(#orbA)" />
+  <rect width="1600" height="1200" fill="url(#orbB)" />
+
+  <g opacity="0.28">
+    <path d="M0 274h1600" stroke="#16211d" stroke-width="2" />
+    <path d="M0 612h1600" stroke="#14201c" stroke-width="2" />
+    <path d="M0 930h1600" stroke="#16211d" stroke-width="2" />
+    <path d="M276 0v1200" stroke="#14201c" stroke-width="2" />
+    <path d="M830 0v1200" stroke="#14201c" stroke-width="2" />
+    <path d="M1282 0v1200" stroke="#14201c" stroke-width="2" />
+  </g>
+
+  <g fill="none">
+    <circle cx="564" cy="618" r="326" stroke="#23362f" stroke-width="2" />
+    <circle cx="564" cy="618" r="248" stroke="#7ad4b9" stroke-opacity="0.32" stroke-width="3" stroke-dasharray="16 22" />
+    <circle cx="564" cy="618" r="154" stroke="#8bded8" stroke-opacity="0.26" stroke-width="3" stroke-dasharray="10 18" />
+    <circle cx="1178" cy="404" r="178" stroke="#22332d" stroke-width="2" />
+    <circle cx="1178" cy="404" r="120" stroke="#8bded8" stroke-opacity="0.3" stroke-width="3" stroke-dasharray="12 16" />
+  </g>
+
+  <g fill="none" stroke-width="4">
+    <path d="M332 762c90-138 214-232 410-278c168-40 332-18 482 98" stroke="#76d1ae" stroke-opacity="0.72" />
+    <path d="M386 864c134-70 268-98 436-74c142 22 258 70 394 172" stroke="#88d9d7" stroke-opacity="0.6" />
+    <path d="M918 280c78 24 156 74 218 142c74 82 122 178 140 302" stroke="#a7f0cf" stroke-opacity="0.52" />
+  </g>
+
+  <g fill="#a7f0cf">
+    <circle cx="332" cy="762" r="10" />
+    <circle cx="742" cy="484" r="10" />
+    <circle cx="1224" cy="582" r="10" />
+    <circle cx="386" cy="864" r="10" />
+    <circle cx="822" cy="812" r="10" />
+    <circle cx="1216" cy="962" r="10" />
+    <circle cx="918" cy="280" r="10" />
+    <circle cx="1136" cy="422" r="10" />
+    <circle cx="1276" cy="724" r="10" />
+  </g>
+
+  <g fill="#f3f0e7" fill-opacity="0.78" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="2">
+    <text x="214" y="164">SIGNAL FIELD</text>
+    <text x="214" y="198" fill-opacity="0.46">NG911  VOICE  CLOUD  TRIAGE</text>
+  </g>
+
+  <g fill="none" opacity="0.52">
+    <path d="M220 206h242" stroke="#8edcc1" stroke-width="2" />
+    <path d="M220 1010h356" stroke="#8edcc1" stroke-opacity="0.28" stroke-width="2" />
+    <path d="M1108 148h276" stroke="#8bded8" stroke-opacity="0.28" stroke-width="2" />
+    <path d="M1004 1034h332" stroke="#8edcc1" stroke-opacity="0.22" stroke-width="2" />
+  </g>
+
+  <g filter="url(#blur)" opacity="0.34">
+    <ellipse cx="586" cy="612" rx="220" ry="126" fill="#76d1ae" />
+    <ellipse cx="1170" cy="408" rx="138" ry="84" fill="#88d9d7" />
+    <ellipse cx="1134" cy="882" rx="252" ry="96" fill="#6cc7a8" />
+  </g>
+</svg>

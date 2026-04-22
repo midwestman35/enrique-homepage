@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Cinematic operations environment</title>
+  <desc id="desc">A dark systems environment with glowing telemetry walls, layered control surfaces, and emerald signal light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040807" />
+      <stop offset="55%" stop-color="#0b1411" />
+      <stop offset="100%" stop-color="#09100e" />
+    </linearGradient>
+    <radialGradient id="glowA" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#4bc09d" stop-opacity="0.42" />
+      <stop offset="100%" stop-color="#4bc09d" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowB" cx="68%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#7ad9d6" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#7ad9d6" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1d19" />
+      <stop offset="100%" stop-color="#0a1411" />
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8dddc4" stop-opacity="0.16" />
+      <stop offset="50%" stop-color="#a5f0d2" stop-opacity="0.92" />
+      <stop offset="100%" stop-color="#8dddc4" stop-opacity="0.16" />
+    </linearGradient>
+    <filter id="blurLg" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="blurSm" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)" />
+  <rect width="1600" height="1200" fill="url(#glowA)" />
+  <rect width="1600" height="1200" fill="url(#glowB)" />
+
+  <g opacity="0.28">
+    <path d="M0 896h1600" stroke="#1c2b26" stroke-width="2" />
+    <path d="M0 968h1600" stroke="#14201c" stroke-width="2" />
+    <path d="M220 0v1200" stroke="#13211d" stroke-width="2" />
+    <path d="M520 0v1200" stroke="#13211d" stroke-width="2" />
+    <path d="M920 0v1200" stroke="#13211d" stroke-width="2" />
+    <path d="M1280 0v1200" stroke="#13211d" stroke-width="2" />
+  </g>
+
+  <ellipse cx="610" cy="1140" rx="430" ry="92" fill="#07100e" />
+  <ellipse cx="610" cy="1118" rx="290" ry="50" fill="#0d1915" />
+
+  <g opacity="0.72">
+    <path d="M182 786L626 520L1132 486L1416 632L1416 910L182 910Z" fill="#0a1210" />
+    <path d="M226 764L634 546L1086 524L1354 650L1354 868L226 868Z" fill="#09110f" />
+  </g>
+
+  <g>
+    <rect x="264" y="174" width="536" height="322" rx="34" fill="url(#panel)" stroke="#22332d" stroke-width="2" />
+    <rect x="830" y="136" width="490" height="276" rx="30" fill="url(#panel)" stroke="#253731" stroke-width="2" />
+    <rect x="944" y="456" width="358" height="190" rx="26" fill="url(#panel)" stroke="#22332d" stroke-width="2" />
+  </g>
+
+  <g fill="none">
+    <path d="M310 260H754" stroke="url(#line)" stroke-width="3" />
+    <path d="M310 290H690" stroke="#78d3b1" stroke-opacity="0.22" stroke-width="2" />
+    <path d="M310 320H612" stroke="#78d3b1" stroke-opacity="0.18" stroke-width="2" />
+    <path d="M310 352H724" stroke="#78d3b1" stroke-opacity="0.24" stroke-width="2" />
+    <path d="M310 386H652" stroke="#78d3b1" stroke-opacity="0.2" stroke-width="2" />
+    <path d="M864 220H1272" stroke="url(#line)" stroke-width="3" />
+    <path d="M864 254H1188" stroke="#7ad9d6" stroke-opacity="0.24" stroke-width="2" />
+    <path d="M864 286H1236" stroke="#7ad9d6" stroke-opacity="0.18" stroke-width="2" />
+    <path d="M864 318H1160" stroke="#7ad9d6" stroke-opacity="0.2" stroke-width="2" />
+    <path d="M864 350H1226" stroke="#7ad9d6" stroke-opacity="0.16" stroke-width="2" />
+  </g>
+
+  <g opacity="0.68">
+    <path d="M1012 546c38-52 128-84 220-76" stroke="#90ead8" stroke-width="4" fill="none" />
+    <path d="M998 578c68-8 142 16 204 66" stroke="#7ad9d6" stroke-width="4" fill="none" />
+    <circle cx="1012" cy="546" r="10" fill="#a7f0cf" />
+    <circle cx="1232" cy="470" r="10" fill="#89d8d6" />
+    <circle cx="1202" cy="644" r="10" fill="#89d8d6" />
+  </g>
+
+  <g opacity="0.34">
+    <rect x="328" y="598" width="352" height="216" rx="22" fill="#0f1b17" stroke="#253731" />
+    <rect x="724" y="560" width="260" height="146" rx="20" fill="#0d1815" stroke="#20302b" />
+    <rect x="748" y="742" width="468" height="104" rx="18" fill="#0c1613" stroke="#22332d" />
+  </g>
+
+  <g fill="none" opacity="0.52">
+    <path d="M354 640h300" stroke="#8edcc1" stroke-opacity="0.34" stroke-width="2" />
+    <path d="M354 676h212" stroke="#8edcc1" stroke-opacity="0.18" stroke-width="2" />
+    <path d="M354 712h274" stroke="#8edcc1" stroke-opacity="0.26" stroke-width="2" />
+    <path d="M766 612h176" stroke="#7ad9d6" stroke-opacity="0.28" stroke-width="2" />
+    <path d="M766 648h118" stroke="#7ad9d6" stroke-opacity="0.2" stroke-width="2" />
+    <path d="M786 788h390" stroke="#8dddc4" stroke-opacity="0.32" stroke-width="2" />
+  </g>
+
+  <g filter="url(#blurLg)" opacity="0.36">
+    <ellipse cx="1150" cy="218" rx="160" ry="64" fill="#8adfd9" />
+    <ellipse cx="578" cy="262" rx="204" ry="70" fill="#7dd9b8" />
+    <ellipse cx="1110" cy="838" rx="190" ry="70" fill="#5dc39b" />
+  </g>
+
+  <g filter="url(#blurSm)" opacity="0.9">
+    <circle cx="602" cy="258" r="14" fill="#a7f0cf" />
+    <circle cx="1032" cy="220" r="12" fill="#93e6d8" />
+    <circle cx="1184" cy="788" r="12" fill="#a7f0cf" />
+  </g>
+
+  <g opacity="0.42">
+    <path d="M150 160c186 32 348 30 486-4" stroke="#7bd4b6" stroke-opacity="0.28" stroke-width="2" fill="none" />
+    <path d="M1052 980c158-22 286-76 384-164" stroke="#8dddc4" stroke-opacity="0.22" stroke-width="2" fill="none" />
+  </g>
+</svg>

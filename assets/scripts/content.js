@@ -1,109 +1,64 @@
 export const siteContent = {
+  splash: {
+    label: "Resume stream",
+    status: "assembling signal...",
+    task: "Loading operational profile",
+    meta: "Public safety, voice, and infrastructure",
+    progressSteps: [14, 29, 47, 63, 82, 100],
+  },
   hero: {
-    eyebrow: "NOC engineer - network and VoIP specialist",
-    title: "NG911 operations, network engineering, and incident response.",
+    eyebrow: "Engineer, Tinkerer",
+    title: "Operational clarity for critical systems and the tools around them.",
     lede:
-      "I work in NOC and network operations across public safety, carrier, and cloud environments. Development work exists mainly through personal projects built around SIP, logs, and triage workflows.",
-    availability: "Focused on NOC, network, VoIP, and public safety operations work.",
+      "I work inside NG911, voice, and cloud operations, then turn that field pressure into calmer software surfaces for investigation and triage.",
+    availability:
+      "Focused on public safety, network operations, and operator-first product work.",
     primaryCta: {
-      label: "Start a conversation",
+      label: "Email Enrique",
       href: "mailto:enrique@carafe.one",
     },
     secondaryCta: {
       label: "GitHub",
       href: "https://github.com/midwestman35",
     },
-    signalStrip: [
+    metrics: [
       {
         label: "Current",
-        value: "Axon - NOC Engineer, NG911 operations",
+        value: "Axon",
+        detail: "NOC engineer supporting distributed NG911 systems.",
       },
       {
-        label: "Focus",
-        value: "Network operations, VoIP systems, cloud monitoring",
+        label: "Protocols",
+        value: "SIP / MGCP / H.248",
+        detail: "Voice and routing context that shapes how I build.",
       },
       {
-        label: "Project",
-        value: "NocLense - personal SIP and system log analyzer",
+        label: "Build track",
+        value: "NocLense",
+        detail: "A personal product for SIP and system log investigation.",
       },
     ],
   },
-  orbit: {
-    signal: {
-      title: "Signal",
-      copy: "Start with the core resume thesis: NOC engineering, network and VoIP specialization, and NG911 operations.",
-    },
-    systems: {
-      title: "Systems",
-      copy: "The primary work is operations engineering across public safety, carrier, and enterprise environments. Development is secondary and project-driven.",
-    },
-    proof: {
-      title: "Proof",
-      copy: "The project section stays close to the resume: one personal build rooted in SIP, logs, and NOC triage.",
-    },
-    trajectory: {
-      title: "Trajectory",
-      copy: "Each role adds more protocol depth, broader infrastructure exposure, and more operational responsibility.",
-    },
-    contact: {
-      title: "Contact",
-      copy: "Close with a direct path to the work: reach out, review the code, or open the resume.",
-    },
-  },
-  capabilities: [
-    {
-      accent: "emerald",
-      eyebrow: "01 - NG911 and VoIP operations",
-      title: "Mission-critical call delivery, incident handling, and carrier systems.",
-      summary:
-        "The strongest thread in the resume is public safety and voice operations where uptime, routing, and escalation handling directly matter.",
-      bullets: [
-        "NG911, ANI/ALI services, SIP, MGCP, H.248",
-        "Runbooks, incident triage, outage response, SLA ownership",
-        "FortiGate, Digi devices, Metaswitch, Ribbon C15, CUCM",
-      ],
-    },
-    {
-      accent: "cyan",
-      eyebrow: "02 - Network and cloud operations",
-      title: "Monitoring, escalation, and troubleshooting across complex environments.",
-      summary:
-        "The day-to-day work is classic operations engineering: monitoring, troubleshooting, triage, documentation, and cross-functional escalation handling.",
-      bullets: [
-        "AWS, Datadog, Kibana, Rollbar, distributed system observability",
-        "SD-WAN, MPLS, IPv4 and IPv6, SNMP, NetFlow, VPN",
-        "Jira, Zendesk, ServiceNow, SolarWinds, VMware vSphere and ESXi",
-      ],
-    },
-    {
-      accent: "graphite",
-      eyebrow: "03 - Personal project work",
-      title: "Development as a side channel to operations experience.",
-      summary:
-        "The development story belongs here, but it should read like the resume does: one self-initiated project built around operator and triage workflows.",
-      bullets: [
-        "React 18, TypeScript, Vite, Electron, Node.js, Bash scripting",
-        "SIP and system log analysis for NOC-style investigation work",
-        "Personal project work rather than primary job function",
-      ],
-    },
-  ],
   project: {
-    eyebrow: "Personal project",
+    eyebrow: "Featured project",
     title: "NocLense",
     summary:
-      "Self-initiated SIP and system log analyzer built with React 18, TypeScript, and Vite, distributed as an Electron desktop app and deployed on Vercel.",
+      "A personal SIP and system log analyzer that treats parsing, filtering, context, and saved investigation paths as one workflow instead of several disconnected tools.",
     link: {
       label: "View repository",
       href: "https://github.com/midwestman35/NocLense",
     },
     problem:
-      "SIP and system investigations slow down when logs, context, and triage patterns live in separate places.",
+      "Investigations slow down when captures, logs, note-taking, and operator context live in separate windows.",
     system:
-      "AI-assisted context handling, faceted filtering, saved views, and a Web Worker-backed ingestion pipeline for large SIP captures.",
+      "The product combines faceted filtering, AI-assisted context handling, saved views, and a worker-backed ingestion flow for large captures.",
     outcome:
-      "A personal tool that reflects the same operational priorities as the day job: speed, triage clarity, and readable signal.",
+      "It makes the handoff from raw noise to a usable hypothesis faster, which is the same standard I care about in operational environments.",
     stack: ["React 18", "TypeScript", "Vite", "Electron", "Vercel"],
+  },
+  trajectorySection: {
+    eyebrow: "Experience",
+    title: "What I've worked on",
   },
   trajectory: [
     {
@@ -160,9 +115,8 @@ export const siteContent = {
     },
   ],
   contact: {
-    title: "Open to NOC, network, VoIP, and public safety operations work.",
-    body:
-      "The homepage should read the same way the resume does: operations engineering first, with personal project work as a secondary signal of technical curiosity and initiative.",
+    eyebrow: "Contact",
+    title: "Open to work that sits between live systems and cleaner product surfaces.",
     links: [
       {
         label: "Email Enrique",
@@ -182,4 +136,20 @@ export const siteContent = {
       },
     ],
   },
+  visuals: [
+    {
+      id: "hero",
+      section: "signal",
+      src: "assets/images/home/hero-operator.svg",
+      alt:
+        "Cinematic illustration of a dark operations environment with glowing telemetry walls and layered console light.",
+    },
+    {
+      id: "product",
+      section: "proof",
+      src: "assets/images/home/product-noclense.svg",
+      alt:
+        "Product-style render of a NocLense diagnostic interface with logs, filters, timing traces, and highlighted operator decisions.",
+    },
+  ],
 };

@@ -1,33 +1,36 @@
 import { siteContent } from "./content.js";
 
-const heroEyebrow = document.getElementById("heroEyebrow");
-const heroTitle = document.getElementById("heroTitle");
-const heroLede = document.getElementById("heroLede");
-const heroAvailability = document.getElementById("heroAvailability");
-const heroPrimaryCta = document.getElementById("heroPrimaryCta");
-const heroSecondaryCta = document.getElementById("heroSecondaryCta");
-const signalStrip = document.getElementById("signalStrip");
-const capabilityGrid = document.getElementById("capabilityGrid");
-const projectEyebrow = document.getElementById("projectEyebrow");
-const projectTitle = document.getElementById("projectTitle");
-const projectSummary = document.getElementById("projectSummary");
-const projectProblem = document.getElementById("projectProblem");
-const projectSystem = document.getElementById("projectSystem");
-const projectOutcome = document.getElementById("projectOutcome");
-const projectLink = document.getElementById("projectLink");
-const projectStack = document.getElementById("projectStack");
-const trajectoryList = document.getElementById("trajectoryList");
-const contactTitle = document.getElementById("contactTitle");
-const contactBody = document.getElementById("contactBody");
-const contactActions = document.getElementById("contactActions");
-const orbitReadoutTitle = document.getElementById("orbitReadoutTitle");
-const orbitReadoutCopy = document.getElementById("orbitReadoutCopy");
-const orbitLegend = document.getElementById("orbitLegend");
-const orbitHalo = document.getElementById("orbitHalo");
-const navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+function getRequiredElement(id) {
+  const element = document.getElementById(id);
 
-const sections = Array.from(document.querySelectorAll("[data-orbit-section]"));
-const orbitNodes = Array.from(document.querySelectorAll("[data-node]"));
+  if (!element) {
+    throw new Error(`Missing required element: #${id}`);
+  }
+
+  return element;
+}
+
+function createNode(tagName, className, textContent) {
+  const node = document.createElement(tagName);
+
+  if (className) {
+    node.className = className;
+  }
+
+  if (textContent !== undefined) {
+    node.textContent = textContent;
+  }
+
+  return node;
+}
+
+function setToggleLabel(button, isExpanded) {
+  const label = button.querySelector("span");
+
+  if (label) {
+    label.textContent = isExpanded ? "Hide details" : "View details";
+  }
+}
 
 function setLinkAttributes(linkEl, linkData) {
   linkEl.textContent = linkData.label;
@@ -42,8 +45,143 @@ function setLinkAttributes(linkEl, linkData) {
   }
 }
 
+function getVisualById(id) {
+  return siteContent.visuals.find((visual) => visual.id === id) ?? null;
+}
+
+function readSessionValue(key) {
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeSessionValue(key, value) {
+  try {
+    window.sessionStorage.setItem(key, value);
+  } catch {
+    // Ignore storage failures so the splash screen still resolves cleanly.
+  }
+}
+
+const body = document.body;
+const splashScreen = getRequiredElement("splashScreen");
+const splashLabel = getRequiredElement("splashLabel");
+const splashStatus = getRequiredElement("splashStatus");
+const splashTask = getRequiredElement("splashTask");
+const splashMeta = getRequiredElement("splashMeta");
+const splashPercent = getRequiredElement("splashPercent");
+const splashProgressFill = getRequiredElement("splashProgressFill");
+const heroEyebrow = getRequiredElement("heroEyebrow");
+const heroTitle = getRequiredElement("heroTitle");
+const heroLede = getRequiredElement("heroLede");
+const heroAvailability = getRequiredElement("heroAvailability");
+const heroPrimaryCta = getRequiredElement("heroPrimaryCta");
+const heroSecondaryCta = getRequiredElement("heroSecondaryCta");
+const heroMetrics = getRequiredElement("heroMetrics");
+const heroVisual = getRequiredElement("heroVisual");
+const projectEyebrow = getRequiredElement("projectEyebrow");
+const projectTitle = getRequiredElement("projectTitle");
+const projectSummary = getRequiredElement("projectSummary");
+const projectProblem = getRequiredElement("projectProblem");
+const projectSystem = getRequiredElement("projectSystem");
+const projectOutcome = getRequiredElement("projectOutcome");
+const projectLink = getRequiredElement("projectLink");
+const projectStack = getRequiredElement("projectStack");
+const projectVisual = getRequiredElement("projectVisual");
+const trajectoryEyebrow = getRequiredElement("trajectoryEyebrow");
+const trajectoryTitle = getRequiredElement("trajectoryTitle");
+const trajectoryList = getRequiredElement("trajectoryList");
+const contactEyebrow = getRequiredElement("contactEyebrow");
+const contactTitle = getRequiredElement("contactTitle");
+const contactActions = getRequiredElement("contactActions");
+const navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+const sections = Array.from(document.querySelectorAll("[data-nav-section]"));
+
+function renderSplash() {
+  const { splash } = siteContent;
+
+  splashLabel.textContent = splash.label;
+  splashStatus.textContent = splash.status;
+  splashTask.textContent = splash.task;
+  splashMeta.textContent = splash.meta;
+  splashPercent.textContent = `${splash.progressSteps[0]}%`;
+  splashProgressFill.style.setProperty("--splash-progress", `${splash.progressSteps[0]}%`);
+}
+
+function setupSplashScreen() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasSeenSplash = readSessionValue("ev-home-splash-seen") === "true";
+  const minDuration = hasSeenSplash || reduceMotion ? 140 : 1050;
+  const progressSteps = siteContent.splash.progressSteps;
+  const stepDuration = Math.max(90, Math.floor(minDuration / progressSteps.length));
+  const start = window.performance.now();
+  let didFinish = false;
+  let intervalId = null;
+
+  body.classList.add("is-splash-active");
+
+  intervalId = window.setInterval(() => {
+    const elapsed = window.performance.now() - start;
+    const stepIndex = Math.min(
+      progressSteps.length - 1,
+      Math.floor(elapsed / stepDuration)
+    );
+    const currentValue = progressSteps[stepIndex];
+
+    splashPercent.textContent = `${currentValue}%`;
+    splashProgressFill.style.setProperty("--splash-progress", `${currentValue}%`);
+
+    if (stepIndex === progressSteps.length - 1) {
+      window.clearInterval(intervalId);
+    }
+  }, stepDuration);
+
+  function finishSplash() {
+    if (didFinish) {
+      return;
+    }
+
+    didFinish = true;
+    window.clearInterval(intervalId);
+
+    const elapsed = window.performance.now() - start;
+    const remaining = Math.max(0, minDuration - elapsed);
+
+    window.setTimeout(() => {
+      splashPercent.textContent = `${progressSteps[progressSteps.length - 1]}%`;
+      splashProgressFill.style.setProperty(
+        "--splash-progress",
+        `${progressSteps[progressSteps.length - 1]}%`
+      );
+
+      window.setTimeout(() => {
+        splashScreen.classList.add("is-hidden");
+        splashScreen.setAttribute("aria-hidden", "true");
+        body.classList.remove("is-splash-active");
+        writeSessionValue("ev-home-splash-seen", "true");
+
+        window.setTimeout(() => {
+          splashScreen.remove();
+        }, reduceMotion ? 0 : 420);
+      }, reduceMotion ? 0 : 110);
+    }, remaining);
+  }
+
+  if (document.readyState === "complete") {
+    finishSplash();
+  } else {
+    window.addEventListener("load", finishSplash, { once: true });
+  }
+
+  // Fallback so the overlay cannot stall indefinitely.
+  window.setTimeout(finishSplash, 1800);
+}
+
 function renderHero() {
   const { hero } = siteContent;
+  const heroVisualData = getVisualById("hero");
 
   heroEyebrow.textContent = hero.eyebrow;
   heroTitle.textContent = hero.title;
@@ -59,37 +197,29 @@ function renderHero() {
   });
   heroSecondaryCta.className = "button button--secondary";
 
-  signalStrip.innerHTML = hero.signalStrip
-    .map(
-      (item) => `
-        <li class="signal-strip__item">
-          <span class="signal-strip__label">${item.label}</span>
-          <strong>${item.value}</strong>
-        </li>
-      `
-    )
-    .join("");
-}
+  heroMetrics.replaceChildren(
+    ...hero.metrics.map((metric) => {
+      const item = createNode("li", "hero-metric");
 
-function renderCapabilities() {
-  capabilityGrid.innerHTML = siteContent.capabilities
-    .map(
-      (capability) => `
-        <article class="evidence-card capability-card capability-card--${capability.accent}">
-          <p class="capability-card__eyebrow">${capability.eyebrow}</p>
-          <h3>${capability.title}</h3>
-          <p>${capability.summary}</p>
-          <ul>
-            ${capability.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}
-          </ul>
-        </article>
-      `
-    )
-    .join("");
+      item.append(
+        createNode("span", "hero-metric__label", metric.label),
+        createNode("strong", "hero-metric__value", metric.value),
+        createNode("p", "hero-metric__detail", metric.detail)
+      );
+
+      return item;
+    })
+  );
+
+  if (heroVisualData) {
+    heroVisual.src = heroVisualData.src;
+    heroVisual.alt = heroVisualData.alt;
+  }
 }
 
 function renderProject() {
   const { project } = siteContent;
+  const projectVisualData = getVisualById("product");
 
   projectEyebrow.textContent = project.eyebrow;
   projectTitle.textContent = project.title;
@@ -102,109 +232,108 @@ function renderProject() {
   projectLink.target = "_blank";
   projectLink.rel = "noreferrer noopener";
 
-  projectStack.innerHTML = project.stack.map((item) => `<li>${item}</li>`).join("");
+  projectStack.replaceChildren(
+    ...project.stack.map((item) => createNode("li", "", item))
+  );
+
+  if (projectVisualData) {
+    projectVisual.src = projectVisualData.src;
+    projectVisual.alt = projectVisualData.alt;
+  }
 }
 
-function trajectoryItemMarkup(item, isOpen) {
-  const panelId = `trajectory-panel-${item.id}`;
-  const expanded = isOpen ? "true" : "false";
-  const hidden = isOpen ? "" : " hidden";
-  const cardClass = isOpen
-    ? "rail-item trajectory-card trajectory-card--open"
-    : "rail-item trajectory-card";
+function renderTrajectoryHeading() {
+  const { trajectorySection } = siteContent;
 
-  return `
-    <article class="${cardClass}" data-trajectory-item>
-      <div class="trajectory-card__shell">
-        <div class="trajectory-card__meta">
-          <p class="trajectory-card__dates">${item.dates}</p>
-          <p class="trajectory-card__eyebrow">${item.eyebrow}</p>
-        </div>
-        <div class="trajectory-card__main">
-          <h3>${item.company}</h3>
-          <p class="trajectory-card__role">${item.role}</p>
-        </div>
-        <button
-          class="trajectory-toggle"
-          type="button"
-          aria-expanded="${expanded}"
-          aria-controls="${panelId}"
-        >
-          <span>View scope</span>
-        </button>
-      </div>
-      <div class="trajectory-panel" id="${panelId}"${hidden}>
-        <ul class="trajectory-tags">
-          ${item.tags.map((tag) => `<li>${tag}</li>`).join("")}
-        </ul>
-        <ul class="trajectory-points">
-          ${item.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}
-        </ul>
-      </div>
-    </article>
-  `;
+  trajectoryEyebrow.textContent = trajectorySection.eyebrow;
+  trajectoryTitle.textContent = trajectorySection.title;
+}
+
+function createTrajectoryItem(item, isOpen) {
+  const panelId = `trajectory-panel-${item.id}`;
+  const card = createNode(
+    "article",
+    isOpen ? "trajectory-card trajectory-card--open" : "trajectory-card"
+  );
+  const shell = createNode("div", "trajectory-card__shell");
+  const meta = createNode("div", "trajectory-card__meta");
+  const main = createNode("div", "trajectory-card__main");
+  const button = createNode("button", "trajectory-toggle");
+  const panel = createNode("div", "trajectory-panel");
+  const tags = createNode("ul", "trajectory-tags");
+  const points = createNode("ul", "trajectory-points");
+
+  card.dataset.trajectoryItem = "";
+  meta.append(
+    createNode("p", "trajectory-card__dates", item.dates),
+    createNode("p", "trajectory-card__eyebrow", item.eyebrow)
+  );
+  main.append(
+    createNode("h3", "", item.company),
+    createNode("p", "trajectory-card__role", item.role)
+  );
+
+  button.type = "button";
+  button.setAttribute("aria-expanded", String(isOpen));
+  button.setAttribute("aria-controls", panelId);
+  button.append(createNode("span"));
+  setToggleLabel(button, isOpen);
+
+  tags.append(...item.tags.map((tag) => createNode("li", "", tag)));
+  points.append(...item.bullets.map((bullet) => createNode("li", "", bullet)));
+
+  panel.id = panelId;
+  panel.hidden = !isOpen;
+  panel.append(tags, points);
+
+  shell.append(meta, main, button);
+  card.append(shell, panel);
+
+  return card;
 }
 
 function renderTrajectory() {
-  trajectoryList.innerHTML = siteContent.trajectory
-    .map((item, index) => trajectoryItemMarkup(item, index === 0))
-    .join("");
+  trajectoryList.replaceChildren(
+    ...siteContent.trajectory.map((item, index) =>
+      createTrajectoryItem(item, index === 0)
+    )
+  );
 }
 
 function renderContact() {
   const { contact } = siteContent;
 
+  contactEyebrow.textContent = contact.eyebrow;
   contactTitle.textContent = contact.title;
-  contactBody.textContent = contact.body;
 
-  contactActions.innerHTML = contact.links
-    .map((link) => {
-      const rel = link.external ? ' target="_blank" rel="noreferrer noopener"' : "";
-      return `<a class="button button--${link.kind}" href="${link.href}"${rel}>${link.label}</a>`;
+  contactActions.replaceChildren(
+    ...contact.links.map((link) => {
+      const anchor = createNode("a", `button button--${link.kind}`, link.label);
+
+      anchor.href = link.href;
+
+      if (link.external) {
+        anchor.target = "_blank";
+        anchor.rel = "noreferrer noopener";
+      }
+
+      return anchor;
     })
-    .join("");
+  );
 }
 
-function setActiveOrbitState(key) {
-  const orbitContent = siteContent.orbit[key];
-
-  if (!orbitContent) {
-    return;
-  }
-
-  orbitReadoutTitle.textContent = orbitContent.title;
-  orbitReadoutCopy.textContent = orbitContent.copy;
-
-  Array.from(orbitLegend.children).forEach((item) => {
-    item.classList.toggle("is-active", item.dataset.step === key);
-    if (item.dataset.step === key) {
-      item.setAttribute("aria-current", "step");
-    } else {
-      item.removeAttribute("aria-current");
-    }
-  });
-
+function setActiveNavState(key) {
   navLinks.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${key}`;
+
     link.classList.toggle("is-active", isActive);
+
     if (isActive) {
       link.setAttribute("aria-current", "page");
     } else {
       link.removeAttribute("aria-current");
     }
   });
-
-  orbitNodes.forEach((node) => {
-    node.classList.toggle("orbit-node--active", node.dataset.node === key);
-  });
-
-  const activeNode = orbitNodes.find((node) => node.dataset.node === key);
-  if (activeNode && orbitHalo) {
-    orbitHalo.setAttribute(
-      "transform",
-      `translate(${activeNode.dataset.x} ${activeNode.dataset.y})`
-    );
-  }
 }
 
 function setupTrajectoryAccordion() {
@@ -218,16 +347,20 @@ function setupTrajectoryAccordion() {
 
       card.classList.toggle("trajectory-card--open", isTarget);
       button.setAttribute("aria-expanded", isTarget ? "true" : "false");
+      setToggleLabel(button, isTarget);
       panel.hidden = !isTarget;
     });
   }
 
   cards.forEach((card) => {
     const button = card.querySelector(".trajectory-toggle");
+
     button.addEventListener("click", () => {
       const expanded = button.getAttribute("aria-expanded") === "true";
+
       if (expanded) {
         button.setAttribute("aria-expanded", "false");
+        setToggleLabel(button, false);
         card.classList.remove("trajectory-card--open");
         card.querySelector(".trajectory-panel").hidden = true;
         return;
@@ -238,7 +371,11 @@ function setupTrajectoryAccordion() {
   });
 }
 
-function setupOrbitObserver() {
+function setupSectionObserver() {
+  if (!("IntersectionObserver" in window)) {
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       const visible = entries
@@ -246,7 +383,7 @@ function setupOrbitObserver() {
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
       if (visible.length > 0) {
-        setActiveOrbitState(visible[0].target.dataset.orbitSection);
+        setActiveNavState(visible[0].target.dataset.navSection);
       }
     },
     {
@@ -261,6 +398,11 @@ function setupOrbitObserver() {
 function setupSectionReveal() {
   const revealTargets = Array.from(document.querySelectorAll("[data-reveal]"));
 
+  if (!("IntersectionObserver" in window)) {
+    revealTargets.forEach((target) => target.classList.add("is-visible"));
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -271,19 +413,21 @@ function setupSectionReveal() {
       });
     },
     {
-      threshold: 0.18,
+      threshold: 0.16,
     }
   );
 
   revealTargets.forEach((target) => observer.observe(target));
 }
 
+renderSplash();
 renderHero();
-renderCapabilities();
 renderProject();
+renderTrajectoryHeading();
 renderTrajectory();
 renderContact();
-setActiveOrbitState("signal");
+setActiveNavState("signal");
+setupSplashScreen();
 setupTrajectoryAccordion();
-setupOrbitObserver();
+setupSectionObserver();
 setupSectionReveal();

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Diagnostic product world</title>
+  <desc id="desc">A concept image of a log analysis interface with filters, timelines, and investigation panels.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08100e" />
+      <stop offset="100%" stop-color="#050908" />
+    </linearGradient>
+    <linearGradient id="shell" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1815" />
+      <stop offset="100%" stop-color="#0a1311" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6fd0ab" />
+      <stop offset="100%" stop-color="#87d8d7" />
+    </linearGradient>
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)" />
+  <circle cx="1248" cy="176" r="220" fill="#7edcc8" fill-opacity="0.12" filter="url(#glow)" />
+  <circle cx="268" cy="940" r="280" fill="#7eddd7" fill-opacity="0.1" filter="url(#glow)" />
+
+  <rect x="152" y="118" width="1296" height="964" rx="42" fill="url(#shell)" stroke="#22332d" stroke-width="2" />
+  <rect x="184" y="154" width="1232" height="78" rx="24" fill="#0b1311" stroke="#1b2925" />
+  <circle cx="226" cy="192" r="9" fill="#76d1ae" />
+  <circle cx="258" cy="192" r="9" fill="#88d9d7" />
+  <circle cx="290" cy="192" r="9" fill="#f3f0e7" fill-opacity="0.28" />
+  <text x="338" y="202" fill="#f3f0e7" font-size="28" font-family="IBM Plex Mono, monospace" letter-spacing="2">NocLense</text>
+
+  <rect x="200" y="266" width="238" height="770" rx="28" fill="#09110f" stroke="#1d2c27" />
+  <rect x="466" y="266" width="654" height="474" rx="28" fill="#0a1210" stroke="#22332d" />
+  <rect x="1148" y="266" width="250" height="350" rx="28" fill="#0a1210" stroke="#22332d" />
+  <rect x="1148" y="642" width="250" height="394" rx="28" fill="#0a1210" stroke="#22332d" />
+  <rect x="466" y="766" width="654" height="270" rx="28" fill="#09110f" stroke="#22332d" />
+
+  <g fill="#f3f0e7" fill-opacity="0.82" font-family="IBM Plex Mono, monospace">
+    <text x="230" y="318" font-size="22" letter-spacing="2">FILTERS</text>
+    <text x="498" y="318" font-size="22" letter-spacing="2">SESSION TRACE</text>
+    <text x="1180" y="318" font-size="22" letter-spacing="2">PRIORITY</text>
+    <text x="1180" y="694" font-size="22" letter-spacing="2">NOTES</text>
+    <text x="498" y="818" font-size="22" letter-spacing="2">LOG STREAM</text>
+  </g>
+
+  <g>
+    <rect x="228" y="360" width="182" height="58" rx="18" fill="#11211c" stroke="#264038" />
+    <rect x="228" y="436" width="182" height="58" rx="18" fill="#101d19" stroke="#23362f" />
+    <rect x="228" y="512" width="182" height="58" rx="18" fill="#11211c" stroke="#264038" />
+    <rect x="228" y="588" width="182" height="58" rx="18" fill="#101d19" stroke="#23362f" />
+    <rect x="228" y="712" width="182" height="222" rx="22" fill="#0d1815" stroke="#22332d" />
+  </g>
+
+  <g font-family="IBM Plex Sans, sans-serif" font-size="22" fill="#a3b0a9">
+    <text x="254" y="396">SIP ladder</text>
+    <text x="254" y="472">ANI/ALI</text>
+    <text x="254" y="548">Status codes</text>
+    <text x="254" y="624">Packet timing</text>
+    <text x="319" y="804" font-size="20" text-anchor="middle">
+      <tspan x="319">Pinned</tspan>
+      <tspan x="319" dy="28">hypotheses</tspan>
+    </text>
+  </g>
+
+  <g fill="none">
+    <path d="M516 430c80-58 166-96 256-110c104-18 214-6 300 46" stroke="url(#accent)" stroke-width="4" />
+    <path d="M516 478c92 42 182 54 270 40c82-14 166-52 280-132" stroke="#88d9d7" stroke-opacity="0.7" stroke-width="4" />
+    <path d="M516 534c132-10 232 10 344 92c56 40 112 66 182 88" stroke="#76d1ae" stroke-opacity="0.74" stroke-width="4" />
+  </g>
+
+  <g fill="#a7f0cf">
+    <circle cx="516" cy="430" r="9" />
+    <circle cx="772" cy="320" r="9" />
+    <circle cx="1072" cy="366" r="9" />
+    <circle cx="516" cy="534" r="9" />
+    <circle cx="860" cy="626" r="9" />
+    <circle cx="1042" cy="714" r="9" />
+  </g>
+
+  <g stroke="#20312b" stroke-width="2">
+    <path d="M506 860h574" />
+    <path d="M506 904h574" />
+    <path d="M506 948h574" />
+  </g>
+
+  <g font-family="IBM Plex Mono, monospace" font-size="17" fill="#a3b0a9">
+    <text y="874">
+      <tspan x="520">08:04:17</tspan>
+      <tspan x="650">INVITE</tspan>
+      <tspan x="770">edge-01</tspan>
+      <tspan x="918">ani-ali-pri</tspan>
+    </text>
+    <text y="914">
+      <tspan x="520">08:04:18</tspan>
+      <tspan x="650">100 TRY</tspan>
+      <tspan x="770">switch-02</tspan>
+      <tspan x="918">114ms</tspan>
+    </text>
+    <text y="954">
+      <tspan x="520">08:04:20</tspan>
+      <tspan x="650">ALERT</tspan>
+      <tspan x="770">psap-gw</tspan>
+      <tspan x="918">reroute held</tspan>
+    </text>
+    <text y="994">
+      <tspan x="520">08:04:23</tspan>
+      <tspan x="650">200 OK</tspan>
+      <tspan x="770">media-anchor</tspan>
+      <tspan x="918">loss 0.04%</tspan>
+    </text>
+  </g>
+
+  <g>
+    <rect x="1168" y="360" width="210" height="78" rx="20" fill="#11211c" stroke="#264038" />
+    <rect x="1168" y="458" width="210" height="78" rx="20" fill="#101c18" stroke="#23362f" />
+    <rect x="1168" y="556" width="210" height="38" rx="19" fill="url(#accent)" fill-opacity="0.88" />
+  </g>
+
+  <g font-family="IBM Plex Sans, sans-serif" font-size="20" font-weight="600" text-anchor="middle" dominant-baseline="middle">
+    <text x="1273" y="399" fill="#f3f0e7">Investigation open</text>
+    <text x="1273" y="497" fill="#f3f0e7">Route stabilized</text>
+    <text x="1273" y="575" fill="#050807">Escalation avoided</text>
+  </g>
+
+  <g font-family="IBM Plex Sans, sans-serif" font-size="18" fill="#a3b0a9" text-anchor="middle">
+    <text x="1273" y="754">
+      <tspan x="1273">Short notes stay</tspan>
+      <tspan x="1273" dy="32">with captured context</tspan>
+      <tspan x="1273" dy="32">so the trace lives</tspan>
+      <tspan x="1273" dy="32">in one place.</tspan>
+    </text>
+  </g>
+
+  <g opacity="0.34" filter="url(#glow)">
+    <ellipse cx="808" cy="456" rx="290" ry="84" fill="#86ddd4" />
+    <ellipse cx="930" cy="900" rx="210" ry="62" fill="#76d1ae" />
+  </g>
+</svg>
