@@ -1,286 +1,367 @@
+﻿
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta
   name="description"
-  content="Enrique Velazquez is a NOC engineer and builder creating calmer operational tooling for public safety, cloud infrastructure, and investigation workflows."
+  content="Enrique Velazquez is an engineer focused on NG911 operations, voice systems, cloud monitoring, and calmer investigation tools."
 />
-<meta property="og:title" content="Enrique Velazquez | Systems Operator and Developer" />
+<meta property="og:title" content="Enrique Velazquez | Engineer and Systems Builder" />
 <meta
   property="og:description"
-  content="Public safety systems, network operations, and operator-first tooling shaped by real incident workflows."
+  content="Resume and brand site for an engineer building clearer tools for critical systems."
 />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<title>Enrique Velazquez | Systems Operator and Developer</title>
+<title>Enrique Velazquez | Engineer and Systems Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
   rel="stylesheet"
 />
 <link
   rel="icon"
-  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='24' fill='%23050807'/%3E%3Cpath d='M23 69V27h15.5c12.8 0 20.5 7.7 20.5 20.8S51.3 69 38.5 69H23Zm11.7-9.5h3.1c6.1 0 9.3-4.1 9.3-11.7 0-7.7-3.2-11.3-9.3-11.3h-3.1v23ZM62.5 69V27H74v15.8h10V27h11.5v42H84V52.5H74V69H62.5Z' fill='%23f3f0e7'/%3E%3C/svg%3E"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='16' fill='%23040706'/%3E%3Cpath d='M18 70V26h30v9H29v8h17v9H29v9h20v9H18Zm39 0V26h11l10 28 10-28h10v44H88V44L80 70h-5l-8-26v26H57Z' fill='%23f3f0e7'/%3E%3C/svg%3E"
 />
 <link rel="stylesheet" href="assets/styles/home.css" />
 <script>
-document.documentElement.classList.remove("no-js");
 document.documentElement.classList.add("js");
 </script>
 </head>
 <body>
 <a class="skip-link" href="#mainContent">Skip to content</a>
-<div class="page-backdrop" aria-hidden="true">
-  <div class="page-backdrop__halo page-backdrop__halo--one"></div>
-  <div class="page-backdrop__halo page-backdrop__halo--two"></div>
-  <div class="page-backdrop__grid"></div>
-</div>
-<div class="splash-screen" id="splashScreen" role="status" aria-live="polite">
-  <div class="splash-screen__panel">
-    <div class="splash-screen__head">
-      <div class="splash-screen__spinner" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <p class="splash-screen__label" id="splashLabel">Resume stream</p>
-      <p class="splash-screen__status" id="splashStatus">assembling signal...</p>
-      <p class="splash-screen__percent" id="splashPercent">14%</p>
-    </div>
-    <p class="splash-screen__task" id="splashTask">Loading operational profile</p>
-    <div class="splash-screen__progress" aria-hidden="true">
-      <span class="splash-screen__progress-fill" id="splashProgressFill"></span>
-    </div>
-    <div class="splash-screen__meta">
-      <span id="splashMeta">Public safety, voice, and infrastructure</span>
-      <span>readying</span>
-    </div>
-  </div>
-</div>
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="site-mark" href="#signal" aria-label="Enrique Velazquez home">EV</a>
+    <a class="site-mark site-mark--photo" href="#signal" aria-label="Enrique Velazquez home">
+      <img src="assets/images/home/enrique-headshot.jpg" alt="" />
+    </a>
     <nav class="site-nav" aria-label="Primary">
-      <a href="#signal">Summary</a>
-      <a href="#proof">Project</a>
-      <a href="#trajectory">Work</a>
+      <a href="#signal">Signal</a>
+      <a href="#resume">Resume</a>
+      <a href="#experience">Experience</a>
+      <a href="#build">Build</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="site-header__link" href="mailto:enrique@carafe.one">Email Enrique</a>
+    <a class="site-header__link" href="documents/EnriqueVelazquez_Resume.docx">Resume</a>
   </div>
 </header>
 
 <main class="page-shell" id="mainContent">
-  <section id="signal" class="hero section" data-nav-section="signal" data-reveal="enter">
-    <article class="stage-panel hero__layout">
-      <div class="hero__copy-shell">
-        <div class="hero__copy">
-          <p class="section-kicker" id="heroEyebrow">Engineer, Tinkerer</p>
-          <p class="hero__availability" id="heroAvailability">
-            Focused on public safety, network operations, and operator-first product work.
-          </p>
-          <h1 class="hero__title" id="heroTitle">
-            Operational clarity for critical systems and the tools around them.
-          </h1>
-          <p class="hero__lede" id="heroLede">
-            I work inside NG911, voice, and cloud operations, then turn that field pressure into
-            calmer software surfaces for investigation and triage.
-          </p>
-          <div class="hero__actions">
-            <a class="button button--primary" id="heroPrimaryCta" href="mailto:enrique@carafe.one">Email Enrique</a>
-            <a
-              class="button button--secondary"
-              id="heroSecondaryCta"
-              href="https://github.com/midwestman35"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <figure class="visual-panel hero-visual">
-        <img
-          class="visual-panel__asset"
-          id="heroVisual"
-          src="assets/images/home/hero-operator.svg"
-          alt="Cinematic illustration of a dark operations environment with glowing telemetry walls and layered console light."
-          loading="eager"
-        />
-      </figure>
-
-      <ul class="hero-metrics" id="heroMetrics">
-        <li class="hero-metric">
-          <span class="hero-metric__label">Current</span>
-          <strong class="hero-metric__value">Axon</strong>
-          <p class="hero-metric__detail">NOC engineer supporting distributed NG911 systems.</p>
-        </li>
-        <li class="hero-metric">
-          <span class="hero-metric__label">Protocols</span>
-          <strong class="hero-metric__value">SIP / MGCP / H.248</strong>
-          <p class="hero-metric__detail">Voice and routing context that shapes how I build.</p>
-        </li>
-        <li class="hero-metric">
-          <span class="hero-metric__label">Build track</span>
-          <strong class="hero-metric__value">NocLense</strong>
-          <p class="hero-metric__detail">A personal product for SIP and log investigation.</p>
-        </li>
-      </ul>
-    </article>
-  </section>
-
-  <section id="proof" class="section" data-nav-section="proof" data-reveal="enter">
-    <div class="section-heading">
-      <p class="section-kicker" id="projectEyebrow">Featured project</p>
-      <h2 id="projectTitle">NocLense</h2>
-      <p id="projectSummary">
-        A personal SIP and system log analyzer that treats parsing, filtering, context, and saved
-        investigation paths as one workflow instead of several disconnected tools.
+  <section id="signal" class="hero" data-nav-section="signal">
+    <div class="hero__copy" data-hero-copy>
+      <p class="eyebrow">Engineer</p>
+      <h1 class="hero__title">
+        <span>Enrique</span>
+        <span class="inline-tui inline-tui--title" aria-hidden="true">
+          <span class="tui-spinner">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="tui-readout">911</span>
+        </span>
+        <span>Velazquez</span>
+      </h1>
+      <p class="hero__lede">
+        I operate NG911, voice, network, and cloud environments, then build tools that make
+        high-pressure investigations easier to read, route, and resolve.
       </p>
-    </div>
-
-    <article class="project-spotlight stage-panel">
-      <div class="project-spotlight__copy">
+      <div class="hero__actions">
+        <a class="button button--primary" href="mailto:enrique@carafe.one">Email Enrique</a>
         <a
-          class="project-panel__link"
-          id="projectLink"
-          href="https://github.com/midwestman35/NocLense"
+          class="button button--secondary"
+          href="https://github.com/midwestman35"
           target="_blank"
           rel="noreferrer noopener"
         >
-          View repository
+          GitHub
         </a>
-
-        <div class="project-story-grid">
-          <section class="project-story-block">
-            <p class="project-story-block__label">Operator problem</p>
-            <p id="projectProblem">
-              Investigations slow down when captures, logs, note-taking, and operator context live
-              in separate windows.
-            </p>
-          </section>
-
-          <section class="project-story-block">
-            <p class="project-story-block__label">System shape</p>
-            <p id="projectSystem">
-              The product combines faceted filtering, AI-assisted context handling, saved views,
-              and a worker-backed ingestion flow for large captures.
-            </p>
-          </section>
-
-          <section class="project-story-block">
-            <p class="project-story-block__label">Outcome</p>
-            <p id="projectOutcome">
-              It makes the handoff from raw noise to a usable hypothesis faster, which is the same
-              standard I care about in operational environments.
-            </p>
-          </section>
-        </div>
-
-        <ul class="project-stack" id="projectStack">
-          <li>React 18</li>
-          <li>TypeScript</li>
-          <li>Vite</li>
-          <li>Electron</li>
-          <li>Vercel</li>
-        </ul>
       </div>
-
-      <figure class="visual-panel project-visual">
-        <img
-          class="visual-panel__asset"
-          id="projectVisual"
-          src="assets/images/home/product-noclense.svg"
-          alt="Product-style render of a NocLense diagnostic interface with logs, filters, timing traces, and highlighted operator decisions."
-          loading="lazy"
-        />
-      </figure>
-    </article>
-  </section>
-
-  <section id="trajectory" class="section" data-nav-section="trajectory" data-reveal="enter">
-    <div class="section-heading">
-      <p class="section-kicker" id="trajectoryEyebrow">Experience</p>
-      <h2 id="trajectoryTitle">What I've worked on</h2>
     </div>
 
-    <div class="trajectory-list" id="trajectoryList">
-      <article class="trajectory-card trajectory-card--open" data-trajectory-item>
-        <div class="trajectory-card__shell">
-          <div class="trajectory-card__meta">
-            <p class="trajectory-card__dates">Oct 2025 - Present</p>
-            <p class="trajectory-card__eyebrow">Current role</p>
-          </div>
-          <div class="trajectory-card__main">
-            <h3>Axon</h3>
-            <p class="trajectory-card__role">NOC Engineer - NG911 / Public Safety SaaS</p>
-          </div>
-          <button
-            class="trajectory-toggle"
-            type="button"
-            aria-expanded="true"
-            aria-controls="trajectory-panel-axon"
-          >
-            <span>View details</span>
-          </button>
+    <figure class="hero-media" data-scale-media>
+      <img
+        src="assets/images/home/hero-operator.svg"
+        alt="Cinematic operations environment with telemetry walls, control surfaces, and signal light."
+      />
+    </figure>
+  </section>
+
+  <section class="brand-thesis" aria-label="Brand thesis">
+    <p data-scrub-text>
+      Less noise. Better signal. Cleaner ways through hard systems.
+    </p>
+  </section>
+
+  <section id="resume" class="section chapter" data-nav-section="resume">
+    <div class="section-heading">
+      <p class="eyebrow">Resume translated into a brand system</p>
+      <h2>Operations credibility first. Product instinct close behind.</h2>
+    </div>
+
+    <div class="resume-bento" aria-label="Resume highlights">
+      <article class="bento-card bento-card--thesis">
+        <p class="eyebrow">Positioning</p>
+        <h3>Engineer building for investigation speed.</h3>
+        <ul class="bento-points">
+          <li>Public-safety systems</li>
+          <li>Voice and routing context</li>
+          <li>Operator-first tools</li>
+        </ul>
+      </article>
+
+      <article class="bento-card bento-card--current">
+        <p class="eyebrow">Current role</p>
+        <h3>Axon 911</h3>
+        <p>
+          Monitoring AWS-hosted public-safety infrastructure, triaging incidents, and supporting
+          Digi devices, FortiGate firewalls, ANI/ALI routing, and distributed NG911 services.
+        </p>
+      </article>
+
+      <article class="bento-card">
+        <p class="eyebrow">Builder habits</p>
+        <h3>Small tools, fast feedback, practical polish.</h3>
+        <p>
+          I like building around real workflows: prototype quickly, test against messy inputs,
+          refine the parsing, and keep the interface readable under pressure.
+        </p>
+      </article>
+
+      <article class="bento-card bento-card--image" data-scale-media>
+        <img
+          src="assets/images/home/systems-ambient.svg"
+          alt="Abstract systems field with routes, nodes, and green-cyan signal light."
+        />
+      </article>
+
+      <article class="bento-card">
+        <p class="eyebrow">Tooling</p>
+        <h3>AWS, Datadog, Kibana, Rollbar, Jira, Zendesk, ServiceNow</h3>
+      </article>
+    </div>
+  </section>
+
+  <section class="section accordion-section" aria-label="Operating modes">
+    <div class="section-heading">
+      <h2>Four modes, one operating signature.</h2>
+    </div>
+
+    <div class="mode-accordion" data-accordion>
+      <article class="mode-panel is-active">
+        <img
+          class="mode-panel__image"
+          src="assets/images/home/hero-operator.svg"
+          alt="Dark operations environment with telemetry walls and control surfaces."
+        />
+        <button type="button" data-panel-trigger aria-expanded="true">
+          <span>NG911 operations</span>
+        </button>
+        <div class="mode-panel__body">
+          <h3>Mission-critical voice and routing context.</h3>
+          <p>Public-safety systems, ANI/ALI services, escalation discipline, and SLA-aware response.</p>
         </div>
-        <div class="trajectory-panel" id="trajectory-panel-axon">
-          <ul class="trajectory-tags">
-            <li>AWS</li>
-            <li>Datadog</li>
-            <li>FortiGate</li>
-            <li>ANI/ALI</li>
-            <li>NG911</li>
-          </ul>
-          <ul class="trajectory-points">
-            <li>Monitor AWS-hosted infrastructure and triage service disruptions across distributed NG911 systems.</li>
-            <li>Handle first-level troubleshooting for Digi devices, FortiGate firewalls, and ANI/ALI routing services.</li>
-            <li>Manage incidents across Jira and Zendesk while maintaining SLA expectations for mission-critical environments.</li>
-          </ul>
+      </article>
+
+      <article class="mode-panel">
+        <img
+          class="mode-panel__image"
+          src="assets/images/home/systems-ambient.svg"
+          alt="Abstract systems field with routes, nodes, and signal light."
+        />
+        <button type="button" data-panel-trigger aria-expanded="false">
+          <span>Cloud monitoring</span>
+        </button>
+        <div class="mode-panel__body">
+          <h3>Readable signal across distributed systems.</h3>
+          <p>AWS, Datadog, Kibana, Rollbar, and incident tooling used to shorten time to action.</p>
+        </div>
+      </article>
+
+      <article class="mode-panel">
+        <img
+          class="mode-panel__image"
+          src="assets/images/home/hero-operator.svg"
+          alt="Layered systems panels and routing traces in a dark control-room scene."
+        />
+        <button type="button" data-panel-trigger aria-expanded="false">
+          <span>Network depth</span>
+        </button>
+        <div class="mode-panel__body">
+          <h3>Carrier and enterprise troubleshooting range.</h3>
+          <p>SD-WAN, MPLS, routing protocols, Linux triage, VMware, and voice platform support.</p>
+        </div>
+      </article>
+
+      <article class="mode-panel">
+        <img
+          class="mode-panel__image"
+          src="assets/images/home/product-noclense.svg"
+          alt="NocLense diagnostic interface with filters, traces, and log panels."
+        />
+        <button type="button" data-panel-trigger aria-expanded="false">
+          <span>Builder track</span>
+        </button>
+        <div class="mode-panel__body">
+          <h3>Software shaped by real operator pressure.</h3>
+          <p>React, TypeScript, Vite, Electron, and NocLense as the clearest personal project signal.</p>
         </div>
       </article>
     </div>
   </section>
 
-  <section id="contact" class="section" data-nav-section="contact" data-reveal="enter">
-    <article class="contact-panel stage-panel">
-      <div class="contact-panel__copy">
-        <p class="section-kicker" id="contactEyebrow">Contact</p>
-        <h2 id="contactTitle">
-          Open to work that sits between live systems and cleaner product surfaces.
-        </h2>
+  <section id="experience" class="section experience-section" data-nav-section="experience">
+    <div class="experience-layout">
+      <div class="experience-pin" data-experience-pin>
+        <p class="eyebrow">Experience</p>
+        <h2>Operational depth built across live environments.</h2>
+        <p>
+          Each role adds more protocol range, stronger incident judgment, and a tighter sense of
+          what operators need from internal tools.
+        </p>
       </div>
 
-      <div class="contact-panel__aside">
-        <div class="contact-actions" id="contactActions">
-          <a class="button button--primary" href="mailto:enrique@carafe.one">Email Enrique</a>
-          <a
-            class="button button--secondary"
-            href="https://github.com/midwestman35"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            GitHub profile
-          </a>
-          <a class="button button--secondary" href="documents/EnriqueVelazquez_Resume.docx">Resume</a>
-        </div>
+      <div class="experience-stack">
+        <article class="experience-card" data-stack-card>
+          <p class="experience-card__date">Oct 2025 - Present</p>
+          <h3>Axon</h3>
+          <p>Engineer - NG911 / Public Safety SaaS</p>
+          <ul>
+            <li>AWS-hosted infrastructure monitoring and real-time incident triage.</li>
+            <li>Digi, FortiGate, ANI/ALI, and distributed NG911 support.</li>
+            <li>P1 through P4 incident classification across Jira and Zendesk.</li>
+          </ul>
+        </article>
+
+        <article class="experience-card" data-stack-card>
+          <p class="experience-card__date">Jun 2023 - Oct 2025</p>
+          <h3>CDW</h3>
+          <p>Network Analyst - Enterprise Operations</p>
+          <ul>
+            <li>Managed SD-WAN solutions through Cisco and Silver Peak Orchestrator.</li>
+            <li>Handled Linux server troubleshooting and alert monitoring.</li>
+            <li>Supported VMware ESXi, vSphere, vCenter, and customer infrastructure triage.</li>
+          </ul>
+        </article>
+
+        <article class="experience-card" data-stack-card>
+          <p class="experience-card__date">May 2022 - May 2023</p>
+          <h3>Firstlight Fiber</h3>
+          <p>Enterprise NOC Technician I</p>
+          <ul>
+            <li>Troubleshot OSI layers 1 through 4 across carrier systems.</li>
+            <li>Supported SONET, GPON, DSL, Active Ethernet, and campus networks.</li>
+            <li>Worked across SIP, MGCP, H.248, BGP, OSPF, ISIS, MPLS, DNS, SNMP, IPFIX, and NetFlow.</li>
+          </ul>
+        </article>
+
+        <article class="experience-card" data-stack-card>
+          <p class="experience-card__date">Oct 2021 - May 2022</p>
+          <h3>Hargray Communications</h3>
+          <p>Help Desk Technician</p>
+          <ul>
+            <li>Resolved voice, video, and HSI service issues across support channels.</li>
+            <li>Supported POTS, SIP, eMTA, and PBX delivery platforms.</li>
+            <li>Documented customer interactions for escalation and audit trail clarity.</li>
+          </ul>
+        </article>
       </div>
-    </article>
+    </div>
+  </section>
+
+  <section id="build" class="section build-section" data-nav-section="build">
+    <div class="build-copy">
+      <p class="eyebrow">Featured build</p>
+      <h2>NocLense turns operational traces into a faster investigation surface.</h2>
+      <p>
+        The project positions Enrique as more than a resume of tools: it shows the product instinct
+        underneath the operations background.
+      </p>
+      <a
+        class="button button--secondary"
+        href="https://github.com/midwestman35/NocLense"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        View repository
+      </a>
+    </div>
+
+    <figure class="build-media" data-scale-media>
+      <img
+        src="assets/images/home/noclense-demo.gif"
+        alt="Animated capture of the NocLense desktop app opening to its start screen."
+        loading="lazy"
+      />
+    </figure>
+  </section>
+
+  <section class="marquee-section" aria-label="Core systems and tools">
+    <div class="marquee-track">
+      <span>NG911</span>
+      <span>ANI/ALI</span>
+      <span>SIP</span>
+      <span>MGCP</span>
+      <span>H.248</span>
+      <span>AWS</span>
+      <span>Datadog</span>
+      <span>FortiGate</span>
+      <span>SD-WAN</span>
+      <span>Electron</span>
+      <span>Vite</span>
+      <span>TypeScript</span>
+      <span>NG911</span>
+      <span>ANI/ALI</span>
+      <span>SIP</span>
+      <span>MGCP</span>
+      <span>H.248</span>
+      <span>AWS</span>
+      <span>Datadog</span>
+      <span>FortiGate</span>
+      <span>SD-WAN</span>
+      <span>Electron</span>
+      <span>Vite</span>
+      <span>TypeScript</span>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section" data-nav-section="contact">
+    <div class="contact-copy">
+      <p class="eyebrow">Action</p>
+      <h2>Bring me into work where systems pressure needs clearer tooling.</h2>
+      <p>
+        Best fit: NOC, network, VoIP, public safety, cloud monitoring, and product work that needs
+        operational judgment.
+      </p>
+    </div>
+
+    <div class="contact-actions">
+      <a class="button button--primary" href="mailto:enrique@carafe.one">Email Enrique</a>
+      <a class="button button--secondary" href="documents/EnriqueVelazquez_Resume.docx">Open resume</a>
+      <a
+        class="button button--secondary"
+        href="https://github.com/midwestman35"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        GitHub profile
+      </a>
+    </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <p>Built by Enrique Velazquez for operators, systems, and quieter software surfaces.</p>
+  <p>Enrique Velazquez / public-safety systems, network operations, and investigation tools.</p>
 </footer>
 
-<script type="module" src="assets/scripts/home.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script defer src="assets/scripts/home.js"></script>
 </body>
 </html>

@@ -1,0 +1,18 @@
+{
+  "name": "enrique-homepage",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deps:unused": "knip",
+    "deps:graph": "madge --circular --extensions js ./assets/scripts",
+    "deps:graph:image": "madge --image dependency-graph.svg --extensions js ./assets/scripts"
+  },
+  "knip": {
+    "entry": ["assets/scripts/home.js"],
+    "project": ["assets/scripts/**/*.js"]
+  },
+  "devDependencies": {
+    "knip": "^5.63.1",
+    "madge": "^8.0.0"
+  }
+}
